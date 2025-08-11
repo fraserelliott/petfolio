@@ -1,0 +1,135 @@
+{
+  "middleware": {
+    "auth_token": {
+      "accepted_token": "petfolio123"
+    },
+    "input_check": {},
+    "permissions_token": {
+      "accepted_tokens": {}
+    }
+  },
+  "routes": [
+    {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "data_set": "users",
+      "middleware": [],
+      "metadata": {
+        "creates_entry": true
+      }
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/users/{id}",
+      "data_set": "users",
+      "middleware": [
+        "auth_token"
+      ],
+      "metadata": {
+        "singular_response": true
+      }
+    },
+    {
+      "method": "DELETE",
+      "endpoint": "/api/users/{id}",
+      "data_set": "users",
+      "middleware": [
+        "auth_token"
+      ],
+      "metadata": {
+        "singular_response": true
+      }
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/users/{id}",
+      "data_set": "users",
+      "middleware": [
+        "auth_token"
+      ],
+      "metadata": {}
+    },
+    {
+      "method": "AUTH",
+      "endpoint": "/api/users/login",
+      "data_set": "users",
+      "middleware": [],
+      "metadata": {}
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/posts",
+      "data_set": "posts",
+      "middleware": [],
+      "metadata": {}
+    },
+    {
+      "method": "DELETE",
+      "endpoint": "/api/posts/:id",
+      "data_set": "POSTS",
+      "middleware": [
+        "auth_token"
+      ],
+      "metadata": {
+        "singular_response": true
+      }
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/posts/{id}",
+      "data_set": "posts",
+      "middleware": [
+        "auth_token"
+      ],
+      "metadata": {}
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/posts/following",
+      "data_set": "posts",
+      "middleware": [
+        "auth_token"
+      ],
+      "metadata": {}
+    },
+    {
+      "method": "POST",
+      "endpoint": "/api/comments",
+      "data_set": "comments",
+      "middleware": [
+        "auth_token"
+      ],
+      "metadata": {
+        "creates_entry": true,
+        "creates_created_at": true
+      }
+    },
+    {
+      "method": "GET",
+      "endpoint": "/api/comments",
+      "data_set": "comments",
+      "middleware": [],
+      "metadata": {}
+    },
+    {
+      "method": "DELETE",
+      "endpoint": "/api/comments/{id}",
+      "data_set": "comments",
+      "middleware": [
+        "auth_token"
+      ],
+      "metadata": {
+        "singular_response": true
+      }
+    },
+    {
+      "method": "PUT",
+      "endpoint": "/api/comments/{id}",
+      "data_set": "comments",
+      "middleware": [
+        "auth_token"
+      ],
+      "metadata": {}
+    }
+  ]
+}
