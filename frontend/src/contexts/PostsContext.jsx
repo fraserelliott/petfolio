@@ -1,16 +1,19 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import api from '../api';
+import { useToast } from './ToastContext';
+import { extractErrorMessage } from "../utils/errorUtils";
 
 export const PostsContext = createContext();
 
 export function PostsProvider({children}) {
   const [posts, setPosts] = useState([]);
-
+  const { addToastMessage } = useToast();
+  
   useEffect(() => {
     api.get("/api/posts")
     .then((res) => res.data)
     .then((data) => setPosts(data))
-    .catch((error) => console.error(error));
+    .catch((error) => addToastMessage(extractErrorMessage(error), 'error'));
   }, []);
 
   const addPost = (post) => {
@@ -19,7 +22,7 @@ export function PostsProvider({children}) {
     .then((data) => {
       setPosts(prevPosts => [...prevPosts, data]);
     })
-    .catch((error) => console.error(error));
+    .catch((error) => addToastMessage(extractErrorMessage(error), 'error'));
   }
 
   return (

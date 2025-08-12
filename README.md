@@ -1,3 +1,18 @@
+# Error/success messages
+
+Instead of using `console.log` or `console.error`, there is a toast system built in so all you need to do is as follows, please note the location to import from may differ depending on the file you are using this in. This function adds a message at the bottom right of the screen.
+
+```js
+import { useToast } from "../contexts/ToastContext";
+const { addToastMessage } = useToast();
+addToastMessage("Test", "success");
+```
+
+addToastMessage has 3 parameters:
+- message: the text to display
+- type: 'success' (green) or 'error' (red)
+- delayMs: delay in milliseconds before the error starts to fade, this defaults to 2350
+
 # 🏷️ Issue Tagging & Folder Structure Legend
 
 **Priority (Traffic Light System):**  
