@@ -1,11 +1,11 @@
 :root {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
+  --bg-primary: white;
+  --bg-secondary: #7BB369;
   --btn-primary: #64748b;
   --btn-primary-hover: #475569;
-  --btn-primary-active: #334155;
-  --text-primary: #f1f5f9;
-  --text-secondary: #ffffff;
+  --btn-primary-active: #136d15;
+  --text-primary: black;
+  --text-secondary: black;
   --text-muted: #94a3b8;
   --dropdown-bg: #334155;
   --btn-danger: #f87171;
