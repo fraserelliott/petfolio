@@ -1,3 +1,27 @@
+# 🏷️ Issue Tagging & Folder Structure Legend
+
+**Priority (Traffic Light System):**  
+- 🔴 **Must** — Core features required for MVP. Highest priority.  
+- 🟠 **Should** — Important features to add after Musts. Medium priority.  
+- 🟢 **Could** — Nice-to-have features, lower priority, add if time permits.
+
+**Scope Tags:**  
+- **page** — Full-page components; placed in `/src/pages`. These correspond to routes handled in `App` (using `react-router-dom`).  
+- **context** — React Context providers or hooks managing state/data; placed in `/src/context`.  
+- **frontend** — UI components that are neither full pages nor contexts; placed in `/src/components`.  
+- **backend** — Backend-related issues like models, routes, middleware.
+
+**Folder Structure Mapping:**  
+/src
+/pages ← page tagged issues go here
+/context ← context tagged issues go here
+/components ← frontend tagged issues (excluding contexts/pages) go here
+
+**Additional Notes:**  
+- Issues tagged with multiple scopes (e.g., `frontend` + `context`) follow the `context` folder for React Contexts.  
+- Priority colors help identify urgency and focus. Work through **Must** issues first before moving to **Should** and **Could**.  
+- Dependencies between issues will be linked in issue descriptions for clarity on task order.
+
 # How to set up
 
 1. Clone the repo
