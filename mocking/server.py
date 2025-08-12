@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, Literal
 import uvicorn
 import utils.collection_utils as collection_utils
@@ -533,12 +534,20 @@ class JsonServer:
         print(f"Reset datasets: {loaded_keys}")
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 server = JsonServer(app)
 server.parse_config()
 
 if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))  # Use Render's PORT or default 8000
     uvicorn.run(
-        "server:app",             # refers to `app` in `server.py`
-        host="127.0.0.1",
-        port=8000,
+        "server:app",
+        host="0.0.0.0",  # listen on all interfaces
+        port=port,
     )
