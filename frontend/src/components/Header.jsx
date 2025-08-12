@@ -2,6 +2,7 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import styles from "./Header.module.css";
 import { useAuth } from '../contexts/AuthContext';
+import { UserDropdown } from "./UserDropdown";
 
 export const Header = () => {
   return (
@@ -13,9 +14,7 @@ export const Header = () => {
         <h1>Build your pet's online portfolio.</h1>
       </div>
       <Navbar />
-      <div>
-        Placeholder
-      </div>
+      <UserDropdown />
     </header>
   );
 };

@@ -6,25 +6,25 @@ import { extractErrorMessage } from "../utils/errorUtils";
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(() => localStorage.getItem("authToken"));
+  const [token, setToken] = useState(() => sessionStorage.getItem("authToken"));
   const [username, setUsername] = useState(() =>
-    localStorage.getItem("username")
+    sessionStorage.getItem("username")
   );
   const { addToastMessage } = useToast();
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem("authToken", token);
+      sessionStorage.setItem("authToken", token);
     } else {
-      localStorage.removeItem("authToken");
+      sessionStorage.removeItem("authToken");
     }
   }, [token]);
 
   useEffect(() => {
     if (token) {
-      localStorage.setItem("username", username);
+      sessionStorage.setItem("username", username);
     } else {
-      localStorage.removeItem("username");
+      sessionStorage.removeItem("username");
     }
   }, [username]);
 
