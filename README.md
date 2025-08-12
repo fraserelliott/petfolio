@@ -85,17 +85,12 @@ The following section is auto-generated from the current API and dataset configu
 id, name, email, password, avatar
 
 ### posts
-id, caption, image, likes, created_at, users_id
-
-**Note:** This dataset is linked to `users` via `users_id` foreign key field.
-
-### POSTS
-id, caption, image, likes, created_at, users_id
+id, caption, image, likes, created_at, posted_by
 
 **Note:** This dataset is linked to `users` via `users_id` foreign key field.
 
 ### comments
-id, text, created_at, users_id, posts_id
+id, text, created_at, commenter_id, posts_id
 
 **Note:** This dataset is linked to `posts` via `posts_id` foreign key field.
 **Note:** The following fields are foreign keys and should not be used to trigger extra fetches:
@@ -131,7 +126,7 @@ id, text, created_at, users_id, posts_id
 - metadata: (none)
 
 ### /api/users/login
-- method: POST
+- method: AUTH
 - data_set: users
 - middleware: [  ]
 - metadata: (none)
@@ -142,9 +137,15 @@ id, text, created_at, users_id, posts_id
 - middleware: [  ]
 - metadata: (none)
 
+### /api/posts
+- method: POST
+- data_set: posts
+- middleware: [ auth_token ]
+- metadata: (none)
+
 ### /api/posts/:id
 - method: DELETE
-- data_set: POSTS
+- data_set: posts
 - middleware: [ auth_token ]
 - metadata: 
   - singular_response: True
