@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "setup": "node ../scripts/setupProject.js",
     "dev-mock": "concurrently \"cross-env VITE_API_URL=http://localhost:8000 npm run dev\" \"npm run mock-server\"",
+    "dev-render": "cross-env VITE_API_URL=https://petfolio-mock-server.onrender.com npm run dev",
     "dev-backend": "concurrently \"cd ../backend && npm run dev\" \"cross-env VITE_API_URL=http://localhost:3001 npm run dev\"",
     "mock-server": "node ../scripts/runMock.js",
     "backend": "cd ../backend && npm run dev"
