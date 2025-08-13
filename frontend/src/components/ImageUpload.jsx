@@ -65,8 +65,9 @@ const styles = {
   uploadContainer: {
     position: "relative",
     backgroundColor: "rgba(200, 200, 200, 0.2)",
-    backgroundSize: "cover",
+    backgroundSize: "contain",
     backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
     border: "2px dashed #ccc",
     borderRadius: "1em",
     display: "flex",
