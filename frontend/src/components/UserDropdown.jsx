@@ -29,31 +29,39 @@ export function UserDropdown() {
 
   return (
     <div className={styles.wrapper}>
-      <button ref={toggleButtonRef} onClick={() => setOpen(!open)}>
-        {username ? `${username} \u{1F464}` : "\u{1F464}"}
-      </button>
+      <div ref={toggleButtonRef} onClick={() => setOpen(!open)}>
+        {username ? (
+          <img src="https://place.dog/50/50" className={styles.profileImg} />
+        ) : (
+          "\u{1F464}"
+        )}
+      </div>
       {open && (
         <div className={styles.dropDownContainer} ref={dropdownRef}>
           {username && (
             <ul>
               <li>
-                <Link to="/settings">Settings</Link>
+                <Link to="/settings">Settings {"\u{1F6E0}"}</Link>
               </li>
               <li>
-                <p onClick={() => {
-                  logout();
-                  navigate("/");
-                }}> Logout</p>
+                <p
+                  onClick={() => {
+                    logout();
+                    navigate("/");
+                  }}
+                >
+                  Logout {"\u{1F422}"}
+                </p>
               </li>
             </ul>
           )}
           {!username && (
             <ul>
               <li>
-                <Link to="/login">Login</Link>
+                <Link to="/login">Login {"\u{1F43E}"}</Link>
               </li>
               <li>
-                <Link to="/register">Register</Link>
+                <Link to="/register">Register {"\u{1F415}"}</Link>
               </li>
             </ul>
           )}
