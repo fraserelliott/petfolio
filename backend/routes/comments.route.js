@@ -1,18 +1,16 @@
 // Import express mini library //
 const app = require("express").Router();
 // Import model file //
-const { Comments } = require("./models/comments")
-// Import config file //
-const sequelize = require("./config/connection");
+const { Comments } = require("../models/comments")
 // Import auth file //
-const { signToken, authmiddleware } = require("./utils/auth");
+const { authmiddleware } = require("../utils/auth");
 
 
 
 app.get("/", async (req, res) => {
     try{
-    const comments = await Comments.findAll(Comments);
-    res.status(200).json({message:"here are your comments", comments});
+    const comments = await Comments.findAll();
+    res.status(200).json({comments});
     } catch (error) {
         res.status(500).json({error:error.message})
     }
@@ -32,14 +30,13 @@ app.get("/", async (req, res) => {
 
 
 
-app.post("/:post_id", authmiddleware, async (req, res) => {
+app.post("/", authmiddleware, async (req, res) => {
     try {
-    const { text } = req.body;
-    const { posts_id } = req.query;
-    const comments = await Comments.create({ text, posts_id});
-    res.status(200).json({message:"comment added", comments});
+    const { text, posts_id } = req.body;
+    const comments = await Comments.create({ text, posts_id, commenterId: req.user.id});
+    res.status(201).json({comments});
     } catch (error) {
-        res.status(500).json({error:error.message})
+        res.status(400).json({error:error.message})
     }
 });
 
@@ -59,4 +56,4 @@ app.post("/:post_id", authmiddleware, async (req, res) => {
 
 
 // Export module //
-module.export = app;
+module.exports = app;

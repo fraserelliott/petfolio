@@ -4,11 +4,9 @@ const route = require("express").Router();
 const routePost = require("./posts.route");
 const routeUser = require("./user.route");
 const routeComments = require("./comments.route");
-// Import config file //
-const sequelize = require("sequelize");
 
 // Create get request for health check //
-route.get('/api', async (req, res) => {
+route.get('/', async (req, res) => {
     try{
     res.status(200).json({message:"Welcome to the api"})
 } catch (error) {
@@ -18,9 +16,9 @@ route.get('/api', async (req, res) => {
 
 // Define middleware for each route file //
 
-route.use('/api/posts', routePost);
-route.use('/api/user', routeUser);
-route.use('/api/comments', routeComments);
+route.use('/posts', routePost);
+route.use('/users', routeUser);
+route.use('/comments', routeComments);
 
 // Module export //
-expport.module = route;
+module.exports = route;

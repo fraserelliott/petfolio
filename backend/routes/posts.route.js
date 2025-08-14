@@ -1,21 +1,17 @@
 // Import mini express library //
 const app = require("express").Router();
-// Import config file //
-const sequelize = require("../config/connections");
 // Import post model file //
-const { Posts } = require("./models/posts");
+const { Posts } = require("../models/posts");
 // Import auth file //
-const { signToken, authmiddleware } = require("./utils/auth");
+const { authmiddleware } = require("../utils/auth");
 
-
-
-app.get ("/", async (req, res) => {
-    try {
-const post = await Posts.findAll(Posts);  
-res.status(200).json({post})
-} catch (error) {
-    res.status(500).json({error:error.message})
-}
+app.get("/", async (req, res) => {
+  try {
+    const post = await Posts.findAll();
+    res.status(200).json({ post })
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
 });
 
 // Create a get request to retrieve all posts //
@@ -30,15 +26,14 @@ res.status(200).json({post})
 
 // Create error message //
 
-// - - - Could add the image upload into the create post request? - - - //
 app.post("/post", authmiddleware, async (req, res) => {
-    try {
-const { caption } = req.body
-const post = await Posts.create({ caption }); 
-res.status(200).json({message: "post added succesfully", post})
-} catch (error) {
-    res.status(500).json({error: error.message})
-}
+  try {
+    const { caption, image } = req.body
+    const post = await Posts.create({ caption, image, postedBy: req.user.id });
+    res.status(201).json({ message: "post added succesfully", post })
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
 });
 
 // Create a post request to add a post //
@@ -54,18 +49,6 @@ res.status(200).json({message: "post added succesfully", post})
 // Trigger catch //
 
 // Create error message //
-
-
-
-app.post("/upload", authmiddleware, async (req, res) => {
-try {
-const { image } = req.body;
-const post = await Posts.create(image);
-res.status(200).json({message: "Image added succesfully", post})
-} catch (error) {
-    res.status(500).json({error: error.message})
-}
-});
 
 // Create a post request to upload an image //
 
@@ -114,4 +97,4 @@ res.status(200).json({message: "Image added succesfully", post})
 
 
 // Export module //
-module.export = app;
+module.exports = app;

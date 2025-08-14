@@ -1,53 +1,48 @@
 // Import jsonwebtoken library //
-const jsonwebtoken = require("jsonwebtoken");
+const JWT = require("jsonwebtoken");
 
 // Define the token //
-const key = "myverysecuresecret";
 const expiration = "2 hr";
 
 // Initiate authmiddleware function //
-const authmiddleware = (res, req, next) => {
+const authmiddleware = (req, res, next) => {
 
-    // Locate the token //
-let token = req.body.token || req.query.token || req.header.authorization;
+  // Locate the token //
+  let token = req.body.token || req.query.token || req.header.authorization;
 
-    // Parse token for server to read //
-    if (token === req.header.authrotization) {
-        token = token.split('').pop().trim(); 
-        }
+  // Parse token for server to read //
+  if (token === req.header.authorization) {
+    token = token.split('').pop().trim();
+  }
 
-    // Create an error message //
-    if (!token) {
-res.status(500).json({error:"error finding token"})}
+  // Create an error message //
+  if (!token) {
+    res.status(401).json({ error: "error finding token" })
+  }
 
-next();
-
-// Trigger try //
-try {
-
+  // Trigger try //
+  try {
     // Verify the token //
-const { data }= JWT.verify(token, key, {maxAge: expiration});
+    const { data } = JWT.verify(token, process.env.JWT_SECRET, { maxAge: expiration });
     // Label the token //
-req.user = data;
-} catch (error) {
-    res.status(500).json({error:"error"}, error);
-}
+    req.user = data;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: "This endpoint requires authentication." }, error);
+  }
 }
 
 // Initiate signToken function //
 const signToken = (user) => {
-    // Create token content //
-    const payload = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        password: user.password,
-        avatar: user.avatar
-    }
-// Inject content //
-return JWT.sign({ data: payload }, token,  {expires: expiration});
+  // Create token content //
+  const payload = {
+    id: user.id,
+    name: user.name
+  }
+  // Inject content //
+  return JWT.sign({ data: payload }, token, { expires: expiration });
 }
 
 // Export module //
-module.export = { signToken, authmiddleware };
+module.exports = { signToken, authmiddleware };
 
