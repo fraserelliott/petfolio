@@ -1,42 +1,32 @@
-// Import config libraray //
 const { sequelize } = require("../config/connection");
-// Import express tools //
 const { Model, DataTypes } = require("sequelize")
 
-// Import config file //
+class Comment extends Model { };
 
-// Use class model tool to create database container //
-class Comments extends Model { };
-
-// Use init tool to create database columns //
-Comments.init = ({
-  // Create data //
+Comment.init({
   id: {
     type: DataTypes.UUID,
     allowNull: false,
+    primaryKey: true,
     defaultValue: DataTypes.UUIDV4,
   },
   text: {
     type: DataTypes.STRING,
     allowNull: false,
-
   },
-  commenter_id: {
+  commenterId: {
     type: DataTypes.UUID,
     allowNull: false,
   },
-  posts_id: {
+  postsId: {
     type: DataTypes.UUID,
     allowNull: false,
   }
-},
-{
+}, {
   sequelize,
   timestamps: true,
   underscored: true,
   modelName: "comments"
-})
+});
 
-// Export module //
-module.exports = Comments;
-
+module.exports = Comment;

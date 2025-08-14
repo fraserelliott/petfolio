@@ -1,12 +1,9 @@
 const { sequelize } = require("../config/connection");
-
-// Import express tools //
 const { Model, DataTypes } = require("sequelize");
-// Create container for database //
-class Posts extends Model { }
-// Create columns for database using init //
-Posts.init({
-  // Create data //
+
+class Post extends Model { }
+
+Post.init({
   id: {
     type: DataTypes.UUID,
     allowNull: false,
@@ -44,5 +41,4 @@ Posts.init({
   }
 );
 
-// Export module //
-module.exports = Posts;
+module.exports = Post;

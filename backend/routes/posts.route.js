@@ -1,14 +1,18 @@
 // Import mini express library //
 const app = require("express").Router();
 // Import post model file //
-const { Posts } = require("../models/posts");
+const { Post, User } = require("../models")
 // Import auth file //
 const { authmiddleware } = require("../utils/auth");
 
 app.get("/", async (req, res) => {
   try {
-    const post = await Posts.findAll();
-    res.status(200).json({ post })
+    const posts = await Post.findAll({include: {
+      model: User,
+      as: "author",
+      attributes: [ "id", "avatar", "name" ]
+    }});
+    res.status(200).json(posts)
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
@@ -26,10 +30,10 @@ app.get("/", async (req, res) => {
 
 // Create error message //
 
-app.post("/post", authmiddleware, async (req, res) => {
+app.post("/", authmiddleware, async (req, res) => {
   try {
     const { caption, image } = req.body
-    const post = await Posts.create({ caption, image, postedBy: req.user.id });
+    const post = await Post.create({ caption, image, postedBy: req.user.id });
     res.status(201).json({ message: "post added succesfully", post })
   } catch (error) {
     res.status(400).json({ error: error.message })

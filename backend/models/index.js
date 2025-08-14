@@ -1,34 +1,36 @@
-// Import model files //
-const { Posts, User, Comments } = require("./models");
+const User = require('./user');
+const Post = require('./post');
+const Comment = require('./comment');
 
-// Define hasmany for user/posts //
+// Associations
+User.hasMany(Post, {
+  foreignKey: 'postedBy',
+  as: 'posts'
+});
 
-User.hasMany(Posts) = {
-  // Create sequelize options //
-  foreignKey: "userId",
-  as: "posts"
-};
+Post.belongsTo(User, {
+  foreignKey: 'postedBy',
+  as: 'author'
+});
 
-// Define belongto for user/posts //
-Posts.belongsTo(User) = {
-  // Create sequelize options //
-  foreignKey: "userId",
-  as: "user"
-};
+Post.hasMany(Comment, {
+  foreignKey: 'postsId',
+  as: 'postComments'
+});
 
-// Define hasmany for posts/comments //
-Posts.hasMany(Comments) = {
-  // Create sequelize options //
-  foreignKey: "postId",
-  as: "comments"
-};
+Comment.belongsTo(Post, {
+  foreignKey: 'postsId',
+  as: 'post'
+});
 
-// Define belongsto for posts/comments //
-Comments.belongsTo(Posts) = {
-  // Create sequelize options //
-  foreignKey: "postId",
-  as: "posts"
-};
+User.hasMany(Comment, {
+  foreignKey: 'commenterId',
+  as: 'userComments'
+});
 
-// Module export //
-module.exports = { Posts, User, Comments };
+Comment.belongsTo(User, {
+  foreignKey: 'commenterId',
+  as: 'commenter'
+});
+
+module.exports = { User, Post, Comment };

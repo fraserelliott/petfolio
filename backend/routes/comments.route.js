@@ -1,19 +1,27 @@
 // Import express mini library //
 const app = require("express").Router();
 // Import model file //
-const { Comments } = require("../models/comments")
+const { Comment, User } = require("../models")
 // Import auth file //
 const { authmiddleware } = require("../utils/auth");
 
 
 
 app.get("/", async (req, res) => {
-    try{
-    const comments = await Comments.findAll();
-    res.status(200).json({comments});
-    } catch (error) {
-        res.status(500).json({error:error.message})
+  try {
+    const postsId = req.query.postsId;
+    const where = postsId ? { postsId } : {}
+    const comments = await Comment.findAll({ where, include: [
+    {
+      model: User,
+      as: 'commenter',
+      attributes: ['id', 'name', 'avatar']
     }
+  ] });
+    res.status(200).json({ comments });
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
 });
 
 // Initaite a get request to retrive all comments //
@@ -31,13 +39,13 @@ app.get("/", async (req, res) => {
 
 
 app.post("/", authmiddleware, async (req, res) => {
-    try {
-    const { text, posts_id } = req.body;
-    const comments = await Comments.create({ text, posts_id, commenterId: req.user.id});
-    res.status(201).json({comments});
-    } catch (error) {
-        res.status(400).json({error:error.message})
-    }
+  try {
+    const { text, postsId } = req.body;
+    const comments = await Comment.create({ text, postsId, commenterId: req.user.id });
+    res.status(201).json({ comments });
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
 });
 
 // Initaite a post request to add a comment //

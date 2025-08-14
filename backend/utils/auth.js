@@ -8,22 +8,19 @@ const expiration = "2 hr";
 const authmiddleware = (req, res, next) => {
 
   // Locate the token //
-  let token = req.body.token || req.query.token || req.header.authorization;
+  let token = req.headers.authorization;
 
-  // Parse token for server to read //
-  if (token === req.header.authorization) {
-    token = token.split('').pop().trim();
+  if (!token || typeof token !== 'string') {
+    return res.status(401).json({ message: 'No token provided' });
   }
 
-  // Create an error message //
-  if (!token) {
-    res.status(401).json({ error: "error finding token" })
-  }
+  token = token.split(' ').pop().trim();
 
   // Trigger try //
   try {
     // Verify the token //
-    const { data } = JWT.verify(token, process.env.JWT_SECRET, { maxAge: expiration });
+    console.log(token);
+    const data = JWT.verify(token, process.env.JWT_SECRET);
     // Label the token //
     req.user = data;
     next();
@@ -40,7 +37,7 @@ const signToken = (user) => {
     name: user.name
   }
   // Inject content //
-  return JWT.sign({ data: payload }, token, { expires: expiration });
+  return JWT.sign(payload, process.env.JWT_SECRET);
 }
 
 // Export module //

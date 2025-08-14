@@ -1,9 +1,11 @@
 if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
+  require("dotenv").config();
 }
 
 const { sequelize, testConnection } = require("./config/connection");
 testConnection(); // Exits loudly if there's an issue in the config
+
+require("./models/index");
 
 const express = require("express");
 const path = require("path");
