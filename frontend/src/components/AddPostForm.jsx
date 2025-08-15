@@ -21,9 +21,11 @@ export function AddPostForm() {
 
         const completeData = {
             ...data,
+            //TODO: once image directory is sorted check this for functionality
             image: imageUrl,
             likes: 0,
             created_at: timestamp,
+            // TODO: Link this to token once login page is integrated into the main branch
             posted_by: "testaccount"
         };
         addPost(completeData);
