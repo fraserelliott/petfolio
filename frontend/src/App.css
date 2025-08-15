@@ -3,31 +3,16 @@ h1 {
   font-size: 1.3rem;
 }
 
-button {
-  background-color: var(--btn-primary);
-  color: inherit;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
-  transition: background-color 150ms ease, transform 75ms ease;
-  padding: 0.25rem;
-}
-
-button:hover {
-  background-color: var(--btn-primary-hover);
-}
-
-button:active {
-  background-color: var(--btn-primary-active);
-  transform: scale(0.97);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.btn-danger {
-  background-color: var(--btn-danger);
+.text-center{
+  text-align:center;
 }
 
 .flex {
   display: flex;
+}
+
+.no-flex{
+  display: block;
 }
 
 .flex-grow {
@@ -46,6 +31,10 @@ button:active {
   justify-content: space-between;
 }
 
+.justify-center{
+  justify-content: center;
+}
+
 .justify-end {
   justify-content: end;
 }
@@ -61,6 +50,18 @@ button:active {
 .mx-1 {
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.mx-2{
+  margin: 0 10px;
+}
+
+.mx-3{
+  margin: 0 15px;
+}
+
+.mx-A{
+  margin: 0 auto;
 }
 
 .my-1 {
@@ -85,8 +86,15 @@ button:active {
   width: min(450px, 90vw);
 }
 
+/**********************
+0.? - FORM STYLES    */
 form > * {
   margin-bottom: 0.5rem;
+}
+
+.form-row .col{
+  background-color: #ffffff;
+  height:100%;
 }
 
 input {
@@ -110,6 +118,30 @@ input::placeholder,
 textarea::placeholder {
   color: var(--text-muted);
 }
+
+button, .button {
+  background-color: var(--btn-primary) !important;
+  color: inherit;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: background-color 150ms ease, transform 75ms ease;
+  padding: 0.25rem;
+}
+
+button:hover, .button:hover {
+  background-color: var(--btn-primary-hover);
+}
+
+button:active, .button:active {
+  background-color: var(--btn-primary-active);
+  transform: scale(0.97);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-danger {
+  background-color: var(--btn-danger);
+}
+/*********************/
 
 .horizontal-spacing > * {
   margin-left: 0.25rem;
