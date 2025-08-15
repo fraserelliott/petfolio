@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useForm } from "react-hook-form";
 import styles from "./AddPost.module.css";
 import { useToast } from "../contexts/ToastContext";
 import { usePosts } from "../contexts/PostsContext"
+import { ImageUpload } from '../components/ImageUpload.jsx';
 import { useAuth } from "../contexts/AuthContext"
 
 export function AddPostForm() {
@@ -11,14 +12,39 @@ export function AddPostForm() {
     const {register, handleSubmit, formState: { errors }} = useForm();
     const { login, token } = useAuth();
 
+    const [formData, setFormData] = useState([]);
+    const [imageUrl,setImageUrl] = useState("./test.jpg");
+
     const handleAddPost = (data) => {
-        console.log(data)
+        const timestamp = new Date().toISOString();
+
+        const completeData = {
+            ...data,
+            image: imageUrl,
+            created_at:timestamp,
+            posted_by: "testaccount"
+        };
+
+        //login("test@test.com","test");
+        console.log(completeData)
+    }
+    const handleImgUpload = (url) => {
+        setImageUrl(url);
+        //console.log(url);
     }
 
     return (
-        <div className={styles.addPostContainer}>
+        <div className={styles.addPostContainer} onSubmit={handleSubmit(handleAddPost)}>
             <form>
                 <h2>Hello this is a form</h2>
+                <ImageUpload onUpload={handleImgUpload} />
+                <div className="formGroup">
+                    <label>Caption:</label><br />
+                    <textarea
+                        {...register("caption")}
+                    />
+                </div>
+                <input type="submit" value="Add your Post!" />
             </form>
         </div>
     );

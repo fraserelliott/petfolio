@@ -7,4 +7,6 @@
     background-color: var(--bg-secondary);
     border: 5px solid var(--btn-primary-active);
     border-radius: 15px;
+    display: flex;
+    justify-content: center;
 }
