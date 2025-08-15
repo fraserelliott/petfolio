@@ -6,7 +6,7 @@ import { usePosts } from "../contexts/PostsContext"
 import { ImageUpload } from '../components/ImageUpload.jsx';
 import { useAuth } from "../contexts/AuthContext"
 
-export function AddPostForm() {
+export function AddPostForm( {setNewPost}) {
     // id, caption, image, likes, created_at, posted_by
     const { addToastMessage } = useToast();
     const {register, handleSubmit, formState: { errors }} = useForm();
@@ -15,6 +15,10 @@ export function AddPostForm() {
 
     const [formData, setFormData] = useState([]);
     const [imageUrl,setImageUrl] = useState("./test.jpg");
+
+    const handleCancel = () => {
+        setNewPost(null);
+    };
 
     const handleAddPost = (data) => {
         const timestamp = new Date().toISOString();
@@ -40,6 +44,7 @@ export function AddPostForm() {
     return (
         <div className={styles.addPostContainer} onSubmit={handleSubmit(handleAddPost)}>
             <form>
+                <div className={styles.addPostClose} onClick={handleCancel}>x</div>
                 <h2>Add a new post</h2>
                 <ImageUpload onUpload={handleImgUpload} />
                 <div className="formGroup">
