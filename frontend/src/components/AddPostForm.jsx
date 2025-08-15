@@ -11,6 +11,7 @@ export function AddPostForm() {
     const { addToastMessage } = useToast();
     const {register, handleSubmit, formState: { errors }} = useForm();
     const { login, token } = useAuth();
+    const {addPost} = usePosts();
 
     const [formData, setFormData] = useState([]);
     const [imageUrl,setImageUrl] = useState("./test.jpg");
@@ -21,11 +22,12 @@ export function AddPostForm() {
         const completeData = {
             ...data,
             image: imageUrl,
-            created_at:timestamp,
+            likes: 0,
+            created_at: timestamp,
             posted_by: "testaccount"
         };
-
-        //login("test@test.com","test");
+        addPost(completeData);
+        login("test@test.com","test");
         console.log(completeData)
     }
     const handleImgUpload = (url) => {
@@ -36,7 +38,7 @@ export function AddPostForm() {
     return (
         <div className={styles.addPostContainer} onSubmit={handleSubmit(handleAddPost)}>
             <form>
-                <h2>Hello this is a form</h2>
+                <h2>Add a new post</h2>
                 <ImageUpload onUpload={handleImgUpload} />
                 <div className="formGroup">
                     <label>Caption:</label><br />
