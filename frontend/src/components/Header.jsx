@@ -3,6 +3,7 @@ import logo from "../assets/logo.png";
 import styles from "./Header.module.css";
 import { useAuth } from "../contexts/AuthContext";
 import { UserDropdown } from "./UserDropdown";
+import { AddPost } from "./AddPost";
 
 export const Header = () => {
   const { token } = useAuth();
@@ -17,12 +18,7 @@ export const Header = () => {
       </div>
       <Navbar />
       {!token && (
-        <Link>
-          <div className={styles.columnGroup}>
-            <h1 className={styles.marker}>+</h1>
-            <h1>Create Your Petfolio</h1>
-          </div>
-        </Link>
+        <AddPost />
       )}
       <UserDropdown />
     </header>
