@@ -42,6 +42,9 @@ h1 {
 .flex-wrap {
   flex-wrap: wrap;
 }
+.flex-nowrap {
+  flex-wrap:nowrap;
+}
 
 .justify-between {
   justify-content: space-between;
@@ -68,6 +71,10 @@ h1 {
 
 .w-l {
   width: min(691px, 90vw);
+}
+
+.w-100 {
+  width: 100vw;
 }
 
 /**********************

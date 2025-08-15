@@ -24,7 +24,7 @@ const LoginPage = () => {
 
     if(!token) {
     return (
-        <form onSubmit={handleSubmit(handleLogin)}>
+        <form className="w-100 flex flex-wrap justify-center" onSubmit={handleSubmit(handleLogin)}>
             <div className="form-row w-l text-center">
                 <div className="formGroup my-2">
                     <label>Email:</label><br />
