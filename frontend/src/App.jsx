@@ -3,6 +3,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { ToastMessageDisplay } from "./components/ToastMessageDisplay";
+import HomePage from './pages/HomePage.jsx';
 
 function App() {
   return (
