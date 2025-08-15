@@ -1,7 +1,8 @@
 // RegistrationPage.jsx
 import React from 'react';
-import {ImageUpload} from '../components/ImageUpload.jsx';
+import { ImageUpload } from '../components/ImageUpload.jsx';
 import { useForm } from "react-hook-form";
+import { useToast } from "../contexts/ToastContext";
 
 const RegPage = () => {
     const {register, handleSubmit} = useForm();

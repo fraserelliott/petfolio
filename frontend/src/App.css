@@ -1,11 +1,24 @@
+/**********************
+0.1 - MAIN STYLES - HEADERS    */
+
 h1 {
   font-family: var(--font-family-primary);
   font-size: 1.3rem;
 }
 
+/**********************
+0.2 - MAIN STYLES - TEXT    */
+
 .text-center{
   text-align:center;
 }
+
+.text-align-center {
+  text-align: center;
+}
+
+/**********************
+0.3 - MAIN STYLES - DISPLAY    */
 
 .flex {
   display: flex;
@@ -14,6 +27,9 @@ h1 {
 .no-flex{
   display: block;
 }
+
+/**********************
+0.4 - MAIN STYLES - FLEX    */
 
 .flex-grow {
   flex-grow: 1;
@@ -43,9 +59,22 @@ h1 {
   align-items: center;
 }
 
+/**********************
+0.5 - MAIN STYLES - WIDTH    */
+
+.w-m {
+  width: min(450px, 90vw);
+}
+
 .w-l {
   width: min(691px, 90vw);
 }
+
+/**********************
+0.6 - MAIN STYLES - HEIGHT    */
+
+/**********************
+0.7 - MAIN STYLES - MARGIN    */
 
 .mx-1 {
   margin-left: 5px;
@@ -74,20 +103,16 @@ h1 {
   margin-bottom: 10px;
 }
 
+/**********************
+0.8 - MAIN STYLES - PADDING    */
+
 .p-1 {
   padding: 5px;
 }
 
-.text-align-center {
-  text-align: center;
-}
-
-.w-m {
-  width: min(450px, 90vw);
-}
-
+/*********************/
 /**********************
-0.? - FORM STYLES    */
+1.0 - FORM STYLES    */
 form > * {
   margin-bottom: 0.5rem;
 }
