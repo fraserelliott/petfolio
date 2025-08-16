@@ -1,6 +1,42 @@
 const User = require('./user');
 const Post = require('./post');
 const Comment = require('./comment');
+const { sequelize } = require('../config/connection');
+const { DataTypes } = require("sequelize");
+
+// Junction table for following
+const Follow = sequelize.define(
+  'follows',
+  {
+    followerId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+    },
+    followingId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+    },
+  },
+  {
+    timestamps: false,
+    indexes: [
+      {
+        unique: true,
+        fields: ['followerId', 'followingId'], // unique composite key
+      },
+    ],
+  }
+);
 
 // Associations
 User.hasMany(Post, {
@@ -33,4 +69,11 @@ Comment.belongsTo(User, {
   as: 'commenter'
 });
 
-module.exports = { User, Post, Comment };
+User.belongsToMany(User, {
+  through: Follow,
+  as: 'following',
+  foreignKey: 'followerId',
+  otherKey: 'followingId'
+});
+
+module.exports = { User, Post, Comment, Follow };
