@@ -15,8 +15,8 @@ function App() {
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center", // centers horizontally
-            width: "100%", // full width so centering works
+            alignItems: "center",
+            width: "100%",
           }}
         >
           <Routes>
