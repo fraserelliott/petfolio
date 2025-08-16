@@ -1,34 +1,35 @@
+/**********************
+0.1 - MAIN STYLES - HEADERS    */
+
 h1 {
   font-family: var(--font-family-primary);
   font-size: 1.3rem;
 }
 
-button {
-  background-color: var(--btn-primary);
-  color: inherit;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
-  transition: background-color 150ms ease, transform 75ms ease;
-  padding: 0.25rem;
+/**********************
+0.2 - MAIN STYLES - TEXT    */
+
+.text-center{
+  text-align:center;
 }
 
-button:hover {
-  background-color: var(--btn-primary-hover);
+.text-align-center {
+  text-align: center;
 }
 
-button:active {
-  background-color: var(--btn-primary-active);
-  transform: scale(0.97);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.btn-danger {
-  background-color: var(--btn-danger);
-}
+/**********************
+0.3 - MAIN STYLES - DISPLAY    */
 
 .flex {
   display: flex;
 }
+
+.no-flex{
+  display: block;
+}
+
+/**********************
+0.4 - MAIN STYLES - FLEX    */
 
 .flex-grow {
   flex-grow: 1;
@@ -41,9 +42,16 @@ button:active {
 .flex-wrap {
   flex-wrap: wrap;
 }
+.flex-nowrap {
+  flex-wrap:nowrap;
+}
 
 .justify-between {
   justify-content: space-between;
+}
+
+.justify-center{
+  justify-content: center;
 }
 
 .justify-end {
@@ -54,13 +62,42 @@ button:active {
   align-items: center;
 }
 
+/**********************
+0.5 - MAIN STYLES - WIDTH    */
+
+.w-m {
+  width: min(450px, 90vw);
+}
+
 .w-l {
   width: min(691px, 90vw);
 }
 
+.w-100 {
+  width: 100vw;
+}
+
+/**********************
+0.6 - MAIN STYLES - HEIGHT    */
+
+/**********************
+0.7 - MAIN STYLES - MARGIN    */
+
 .mx-1 {
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.mx-2{
+  margin: 0 10px;
+}
+
+.mx-3{
+  margin: 0 15px;
+}
+
+.mx-A{
+  margin: 0 auto;
 }
 
 .my-1 {
@@ -73,20 +110,23 @@ button:active {
   margin-bottom: 10px;
 }
 
+/**********************
+0.8 - MAIN STYLES - PADDING    */
+
 .p-1 {
   padding: 5px;
 }
 
-.text-align-center {
-  text-align: center;
-}
-
-.w-m {
-  width: min(450px, 90vw);
-}
-
+/*********************/
+/**********************
+1.0 - FORM STYLES    */
 form > * {
   margin-bottom: 0.5rem;
+}
+
+.form-row .col{
+  background-color: #ffffff;
+  height:100%;
 }
 
 input {
@@ -110,6 +150,30 @@ input::placeholder,
 textarea::placeholder {
   color: var(--text-muted);
 }
+
+button, .button {
+  background-color: var(--btn-primary) !important;
+  color: inherit;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: background-color 150ms ease, transform 75ms ease;
+  padding: 0.25rem;
+}
+
+button:hover, .button:hover {
+  background-color: var(--btn-primary-hover);
+}
+
+button:active, .button:active {
+  background-color: var(--btn-primary-active);
+  transform: scale(0.97);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-danger {
+  background-color: var(--btn-danger);
+}
+/*********************/
 
 .horizontal-spacing > * {
   margin-left: 0.25rem;

@@ -37,11 +37,6 @@ export function AuthProvider({ children }) {
         setUsername(username);
       })
       .catch((error) => {
-        const message =
-          error.response?.data?.message ||
-          error.message ||
-          "Something went wrong";
-
         addToastMessage(extractErrorMessage(error), "error");
       });
   };

@@ -17,7 +17,7 @@ export const Header = () => {
       </div>
       <Navbar />
       {!token && (
-        <Link>
+        <Link to="/register">
           <div className={styles.columnGroup}>
             <h1 className={styles.marker}>+</h1>
             <h1>Create Your Petfolio</h1>
