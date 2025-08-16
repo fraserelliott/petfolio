@@ -20,16 +20,19 @@ export function AddPostForm({ onClose }) {
   const [imageUrl, setImageUrl] = useState("");
 
   const handleClose = () => {
-    if (onClose)
-      onClose();
+    if (onClose) onClose();
   };
 
   const handleAddPost = (data) => {
+    if (!imageUrl)
+      return addToastMessage("Please upload an image for your post", "error");
+
     const completeData = {
       ...data,
       image: imageUrl,
-      likes: 0
+      likes: 0,
     };
+
     addPost(completeData);
     handleClose();
   };
@@ -42,10 +45,15 @@ export function AddPostForm({ onClose }) {
     setImageUrl("");
   };
 
+  const displayErrors = (errors) => {
+    if (errors.caption?.type === "required")
+      return addToastMessage("Please add a caption", "error");
+  };
+
   return (
     <div
       className={styles.addPostContainer}
-      onSubmit={handleSubmit(handleAddPost)}
+      onSubmit={handleSubmit(handleAddPost, displayErrors)}
     >
       <form>
         <div className={styles.addPostClose} onClick={handleClose}>
@@ -56,7 +64,7 @@ export function AddPostForm({ onClose }) {
         <div className="formGroup">
           <label>Caption:</label>
           <br />
-          <textarea {...register("caption")} rows="4" />
+          <textarea {...register("caption", { required: true })} rows="4" />
         </div>
         <input type="submit" value="Add your Post!" />
       </form>

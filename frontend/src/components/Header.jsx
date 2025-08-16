@@ -8,7 +8,7 @@ import { AddPostForm } from "./AddPostForm";
 
 export const Header = () => {
   const { token } = useAuth();
-  const [newPost, setNewPost] = useState(null);
+  const [showNewPost, setShowNewPost] = useState(false);
 
   return (
     <header className={styles.container}>
@@ -19,21 +19,21 @@ export const Header = () => {
         <h1>Build your pet's online portfolio.</h1>
       </div>
       <Navbar />
-      {!token ? (
+      {token ? (
+        <div onClick={() => setShowNewPost(true)} className={styles.columnGroup}>
+          <h1 className={styles.marker}>+</h1>
+          <h1>Add a New Post</h1>
+        </div>
+      ) : (
         <Link to="/register">
           <div className={styles.columnGroup}>
             <h1 className={styles.marker}>+</h1>
             <h1>Create Your Petfolio</h1>
           </div>
         </Link>
-      ) : (
-        <div onClick={() => setNewPost(!newPost)} className={styles.columnGroup}>
-          <h1 className={styles.marker}>+</h1>
-          <h1>Add a New Post</h1>
-        </div>
       )}
       <UserDropdown />
-      {newPost && <AddPostForm setNewPost={setNewPost} />}
+      {showNewPost && <AddPostForm onClose={() => setShowNewPost(false)} />}
     </header>
   );
 };

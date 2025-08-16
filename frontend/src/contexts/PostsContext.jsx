@@ -25,7 +25,7 @@ export function PostsProvider({children}) {
     .then((data) => {
       setPosts(prevPosts => [...prevPosts, data]);
     })
-    .then(addToastMessage("Post Added", "success"))
+    .then(() => addToastMessage("Post Added", "success"))
     .catch((error) => addToastMessage(extractErrorMessage(error), 'error'));
   }
 
