@@ -71,6 +71,57 @@ app.post("/login", async (req, res) => {
 
 // Create error message //
 
+app.get("/following", authmiddleware, async (req, res) => {
+  try {
+    const followerId = req.query.followerId || req.user.id;
+    const following = await Follow.findAll({
+      where: { followerId },
+      attributes: ['followingId']
+    });
+    res.status(200).json(following.map(f => f.followingId));
+  } catch (error) {
+    console.error("Error getting following list: ", error);
+    res.status(500).json({ error: "Error getting following list" })
+  }
+});
 
-// Export module //
+app.post("/following/:followingId", authmiddleware, async (req, res) => {
+  try {
+    const followerId = req.user.id;
+    const followingId = req.params.followingId;
+
+    if (followerId === followingId) {
+      return res.status(400).json({ error: "Cannot follow yourself" });
+    }
+
+    const followRecord = await Follow.create({followerId, followingId});
+    res.status(201).json(followRecord);
+  } catch (error) {
+    if (error.name === "SequelizeUniqueConstraintError") {
+      return res.status(409).json({ error: "Already following this user" });
+    }
+    console.error("Error adding following entry: ", error);
+    res.status(500).json({ error: "Error adding following entry" })
+  }
+})
+
+app.delete("/following/:followingId", authmiddleware, async (req, res) => {
+  try {
+    const followerId = req.user.id;
+    const followingId = req.params.followingId;
+
+    const deleted = await Follow.destroy({
+      where: { followerId, followingId }
+    });
+
+    if (deleted === 0) {
+      return res.status(404).json({ error: "Follow relationship not found" });
+    }
+    res.sendStatus(204);
+  } catch (error) {
+    console.error("Error deleting following entry: ", error);
+    res.status(500).json({ error: "Error deleting following entry" })
+  }
+})
+
 module.exports = app;

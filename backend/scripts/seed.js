@@ -2,7 +2,7 @@ require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
 const { sequelize } = require("../config/connection");
-const { User, Post, Comment } = require("../models");
+const { User, Post, Comment, Follow } = require("../models");
 
 // Create a helper to read JSON
 const loadJSON = (fileName) => {
@@ -19,6 +19,19 @@ const seed = async () => {
     // Seed Users
     const usersData = loadJSON("users.json");
     await User.bulkCreate(usersData, { validate: true, individualHooks: true });
+    const follows = [];
+    for (const user of usersData) {
+      const numFollows = Math.floor((Math.random() * 5) + 1);
+      const otherUserIds = usersData.map(u => u.id).filter(id => id !== user.id);
+      // shuffle and take first numFollows
+      const shuffled = otherUserIds.sort(() => 0.5 - Math.random());
+      const followIds = shuffled.slice(0, numFollows);
+      followIds.forEach(followingId => {
+        follows.push({ followerId: user.id, followingId });
+      });
+    }
+
+    await Follow.bulkCreate(follows);
 
     // Seed Posts
     const postsDataRaw = loadJSON("posts.json");
