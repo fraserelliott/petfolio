@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./UserDropdown.module.css";
 
 export function UserDropdown() {
-  const { username, logout } = useAuth();
+  const { id, logout } = useAuth();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ export function UserDropdown() {
   return (
     <div className={styles.wrapper}>
       <div ref={toggleButtonRef} onClick={() => setOpen(!open)}>
-        {username ? (
+        {id ? (
           <img src="https://place.dog/50/50" className={styles.profileImg} />
         ) : (
           "\u{1F464}"
@@ -38,7 +38,7 @@ export function UserDropdown() {
       </div>
       {open && (
         <div className={styles.dropDownContainer} ref={dropdownRef}>
-          {username && (
+          {id && (
             <ul>
               <li>
                 <Link to="/settings">Settings {"\u{1F6E0}"}</Link>
@@ -55,7 +55,7 @@ export function UserDropdown() {
               </li>
             </ul>
           )}
-          {!username && (
+          {!id && (
             <ul>
               <li>
                 <Link to="/login">Login {"\u{1F43E}"}</Link>

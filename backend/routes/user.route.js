@@ -11,8 +11,9 @@ app.post("/", async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const newUser = await User.create({ name, email: email.trim().toLowerCase(), password });
-
-    res.status(201).json({ newUser });
+    const userData = newUser.get({ plain: true });
+    delete userData.password;
+    res.status(201).json(userData);
   } catch (error) {
     res.status(400).json({ error: error.message })
   }
@@ -41,11 +42,12 @@ app.post("/login", async (req, res) => {
     const user = await User.findOne({ where: { email: email.trim().toLowerCase() } });
 
     if (!user || !(await bcrypt.compare(password, user.password)))
-      return res.status(401).json({ error: "Invalid username or password. " });
+      return res.status(401).json({ error: "Invalid email address or password. " });
 
     const token = await signToken(user);
-    res.status(200).json({ token });
+    res.status(200).json({ token, id: user.id });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: error.message })
   }
 });
