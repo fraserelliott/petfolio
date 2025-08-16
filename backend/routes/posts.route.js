@@ -14,7 +14,8 @@ app.get("/", async (req, res) => {
     }});
     res.status(200).json(posts)
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    console.error("Error retrieving posts: ", error);
+    res.status(500).json({ error: "Error retrieving posts" })
   }
 });
 
@@ -34,9 +35,10 @@ app.post("/", authmiddleware, async (req, res) => {
   try {
     const { caption, image } = req.body
     const post = await Post.create({ caption, image, postedBy: req.user.id });
-    res.status(201).json({ message: "post added succesfully", post })
+    res.status(201).json(post)
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    console.error("Error adding post: ", error);
+    res.status(500).json({ error: "Error adding post" })
   }
 });
 

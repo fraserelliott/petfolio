@@ -15,7 +15,8 @@ app.post("/", async (req, res) => {
     delete userData.password;
     res.status(201).json(userData);
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    console.error("Error adding user: ", error);
+    res.status(500).json({ error: "Error adding user" })
   }
 });
 
@@ -47,8 +48,8 @@ app.post("/login", async (req, res) => {
     const token = await signToken(user);
     res.status(200).json({ token, id: user.id });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message })
+    console.error("Error logging in: ", error);
+    res.status(500).json({ error: "Error logging in" })
   }
 });
 
