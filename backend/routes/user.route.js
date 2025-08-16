@@ -1,7 +1,7 @@
 // Import express mini libraray // 
 const app = require("express").Router();
 // Import user model file //
-const { User } = require("../models")
+const { User, Follow } = require("../models")
 // Import auth file // 
 const { signToken, authmiddleware } = require("../utils/auth");
 const bcrypt = require('bcrypt');
