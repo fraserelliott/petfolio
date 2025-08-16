@@ -18,9 +18,10 @@ app.get("/", async (req, res) => {
       attributes: ['id', 'name', 'avatar']
     }
   ] });
-    res.status(200).json({ comments });
+    res.status(200).json(comments);
   } catch (error) {
-    res.status(500).json({ error: error.message })
+    console.error("Error retrieving comments:", error);
+    res.status(500).json({ error: "Error retrieving comments" });
   }
 });
 
@@ -41,10 +42,11 @@ app.get("/", async (req, res) => {
 app.post("/", authmiddleware, async (req, res) => {
   try {
     const { text, postsId } = req.body;
-    const comments = await Comment.create({ text, postsId, commenterId: req.user.id });
-    res.status(201).json({ comments });
+    const comment = await Comment.create({ text, postsId, commenterId: req.user.id });
+    res.status(201).json(comment);
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    console.error("Error adding comment:", error);
+    res.status(500).json({ error: "Error adding comment" });
   }
 });
 

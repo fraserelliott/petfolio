@@ -14,7 +14,7 @@ export function ImageUpload(props) {
     if (!file) return;
 
     const formData = new FormData();
-    formData.append("file", file);
+    formData.append("image", file);
 
     api
       .post("/api/upload", formData)
