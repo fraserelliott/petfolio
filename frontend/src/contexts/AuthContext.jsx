@@ -35,14 +35,8 @@ export function AuthProvider({ children }) {
       .then((data) => {
         setToken(data.token);
         setUsername(username);
-        //addToastMessage("Logged In Successfully", "success");
       })
       .catch((error) => {
-        const message =
-          error.response?.data?.message ||
-          error.message ||
-          "Something went wrong";
-
         addToastMessage(extractErrorMessage(error), "error");
       });
   };
