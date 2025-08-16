@@ -19,8 +19,7 @@ export const Header = () => {
         <h1>Build your pet's online portfolio.</h1>
       </div>
       <Navbar />
-      {/* TODO: Set with a ! infront of token so that it shows a link to create an account when someone is not logged in */}
-      {token ? (
+      {!token ? (
         <Link to="/register">
           <div className={styles.columnGroup}>
             <h1 className={styles.marker}>+</h1>

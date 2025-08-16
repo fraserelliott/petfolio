@@ -7,8 +7,8 @@ export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => sessionStorage.getItem("authToken"));
-  const [username, setUsername] = useState(() =>
-    sessionStorage.getItem("username")
+  const [id, setId] = useState(() =>
+    sessionStorage.getItem("id")
   );
   const { addToastMessage } = useToast();
 
@@ -21,39 +21,34 @@ export function AuthProvider({ children }) {
   }, [token]);
 
   useEffect(() => {
-    if (token) {
-      sessionStorage.setItem("username", username);
+    if (id) {
+      sessionStorage.setItem("id", id);
     } else {
-      sessionStorage.removeItem("username");
+      sessionStorage.removeItem("id");
     }
-  }, [username]);
+  }, [id]);
 
-  const login = (username, password) => {
+  const login = (email, password) => {
     api
-      .post("/api/users/login", { username, password })
+      .post("/api/users/login", { email, password })
       .then((res) => res.data)
       .then((data) => {
         setToken(data.token);
-        setUsername(username);
+        setId(data.id);
       })
       .catch((error) => {
-        const message =
-          error.response?.data?.message ||
-          error.message ||
-          "Something went wrong";
-
         addToastMessage(extractErrorMessage(error), "error");
       });
   };
 
   const logout = () => {
     setToken(null);
-    setUsername(null);
+    setId(null);
   };
 
   return (
     <AuthContext.Provider
-      value={{ token, username, setUsername, login, logout }}
+      value={{ token, id, login, logout }}
     >
       {children}
     </AuthContext.Provider>
