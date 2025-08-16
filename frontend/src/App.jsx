@@ -5,6 +5,7 @@ import { Footer } from "./components/Footer";
 import { ToastMessageDisplay } from "./components/ToastMessageDisplay";
 import RegPage from "./pages/RegPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import grass from "./assets/background.png";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
             flexDirection: "column",
             alignItems: "center",
             width: "100%",
+            backgroundImage: `url(${grass})`,
+            padding: "2rem"
           }}
         >
           <Routes>
