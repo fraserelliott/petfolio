@@ -7,8 +7,8 @@ import { UserDropdown } from "./UserDropdown";
 import { AddPostForm } from "./AddPostForm";
 
 export const Header = () => {
-  const { token } = useAuth();
   const [showNewPost, setShowNewPost] = useState(false);
+  const { token } = useAuth();
 
   return (
     <header className={styles.container}>
