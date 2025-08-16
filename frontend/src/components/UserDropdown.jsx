@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { useProfile } from "../contexts/ProfileContext";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./UserDropdown.module.css";
-import defaultAvatar from "../assets/defaultAvatar.png";
+import { UserAvatar } from "./UserAvatar";
 
 export function UserDropdown() {
   const { id, logout } = useAuth();
@@ -34,12 +34,7 @@ export function UserDropdown() {
     <div className={styles.wrapper}>
       <div ref={toggleButtonRef} onClick={() => setOpen(!open)}>
         {id ? (
-          <img
-            src={(user && user.avatar) ? user.avatar : defaultAvatar}
-            width="50"
-            height="50"
-            className={styles.profileImg}
-          />
+          <UserAvatar user={user} />
         ) : (
           "\u{1F464}"
         )}
