@@ -8,6 +8,7 @@ export const ProfileContext = createContext();
 
 export function ProfileProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [following, setFollowing] = useState([]);
   const { id, logout } = useAuth();
   const { addToastMessage } = useToast();
 
@@ -19,8 +20,15 @@ export function ProfileProvider({ children }) {
         .catch((error) => {
           addToastMessage(extractErrorMessage(error), "error");
         });
+      api
+        .get(`/api/users/following`)
+        .then((res) => setFollowing(res.data))
+        .catch((error) => {
+          addToastMessage(extractErrorMessage(error), "error");
+        });
     } else {
       setUser(null);
+      setFollowing([]);
     }
   }, [id]);
 
@@ -42,8 +50,28 @@ export function ProfileProvider({ children }) {
       });
   };
 
+  const followAccount = (followingId) => {
+    api
+      .post(`/following/${followingId}`)
+      .then((res) => setFollowing((prev) => [...prev, followingId]))
+      .catch((error) => {
+        addToastMessage(extractErrorMessage(error), "error");
+      });
+  };
+
+  const unfollowAccount = (followingId) => {
+    api
+      .delete(`/following/${followingId}`)
+      .then((res) => setFollowing((prev) => prev.filter(fId => fId !== followingId)))
+      .catch((error) => {
+        addToastMessage(extractErrorMessage(error), "error");
+      });
+  }
+
   return (
-    <ProfileContext.Provider value={{ user, updateAccount, deleteAccount }}>
+    <ProfileContext.Provider
+      value={{ user, following, updateAccount, deleteAccount, followAccount, unfollowAccount }}
+    >
       {children}
     </ProfileContext.Provider>
   );

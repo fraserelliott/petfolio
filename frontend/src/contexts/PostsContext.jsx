@@ -3,13 +3,14 @@ import api from "../api";
 import { useToast } from "./ToastContext";
 import { extractErrorMessage } from "../utils/errorUtils";
 import { useAuth } from "./AuthContext";
+import { useProfile } from "./ProfileContext";
 
 export const PostsContext = createContext();
 
 export function PostsProvider({ children }) {
   const [posts, setPosts] = useState([]);
   const { addToastMessage } = useToast();
-  const { id } = useAuth();
+  const { following } = useProfile();
 
   useEffect(() => {
     api
@@ -49,11 +50,40 @@ export function PostsProvider({ children }) {
     }
   };
 
+  const getPostsFromFollowList = () => {
+    return posts.filter((post) => following.includes(post.postedBy));
+  };
 
+  const addComment = (comment) => {
+    api
+      .post("/api/comments", comment)
+      .catch((error) => addToastMessage(extractErrorMessage(error), "error"));
+  };
+
+  const editComment = (comment) => {
+    api
+      .put(`/api/comments/${comment.id}`, comment)
+      .catch((error) => addToastMessage(extractErrorMessage(error), "error"));
+  }
+
+  const deleteComment = (id) => {
+    api
+      .delete(`/api/comments/${id}`)
+      .catch((error) => addToastMessage(extractErrorMessage(error), "error"));
+  }
 
   return (
     <PostsContext.Provider
-      value={{ posts, addPost, getPostsByUser, getCommentsForPostAsync }}
+      value={{
+        posts,
+        addPost,
+        getPostsByUser,
+        getCommentsForPostAsync,
+        getPostsFromFollowList,
+        addComment,
+        editComment,
+        deleteComment
+      }}
     >
       {children}
     </PostsContext.Provider>
