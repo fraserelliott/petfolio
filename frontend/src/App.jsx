@@ -7,19 +7,20 @@ import Home from "./pages/home";
 import RegPage from "./pages/RegPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import grass from "./assets/background.png";
+
 function App() {
   return (
     <>
       <BrowserRouter>
         <Header />
         <div
+        className="pageContainer"
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             width: "100%",
             backgroundImage: `url(${grass})`,
-            padding: "2rem"
           }}
         >
           <Routes>

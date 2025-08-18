@@ -185,6 +185,10 @@ button:active, .button:active {
   margin-bottom: 0.25rem;
 }
 
+.pageContainer > * {
+  margin: 2em;
+}
+
 /* responsive behaviours */
 
 @media (max-width: 768px) {

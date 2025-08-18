@@ -1,12 +1,14 @@
 import React from 'react';
 import './PostCard.css';
+import defaultAvatar from "../assets/defaultAvatar.png";
 
 const PostCard = ({ post }) => {
+  console.log(post);
     return (
         <div className="post-card">
             <div className="post-header">
-                <img src={post.postedBy?.avatar || ""} alt={post.name} className="avatar" />
-                <span className="name">{post.postedBy?.name || ""}</span>
+                <img src={post.author?.avatar || defaultAvatar} alt={post.name} className="avatar" />
+                <span className="name">{post.author?.name || ""}</span>
             </div>
 
         <div className="post-image">
@@ -14,7 +16,7 @@ const PostCard = ({ post }) => {
         </div>
 
         <div className="post-footer">
-            <span className="likes">{post.likes} likes </span>
+            <span className="likes">🦴 {post.likes} treats </span>
         </div>
 
         </div>
