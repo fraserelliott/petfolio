@@ -15,7 +15,7 @@ export function ProfileProvider({ children }) {
   useEffect(() => {
     if (id) {
       api
-        .get(`/api/users/${id}`)
+        .get(`/api/users`)
         .then((res) => setUser(res.data))
         .catch((error) => {
           addToastMessage(extractErrorMessage(error), "error");
@@ -34,7 +34,7 @@ export function ProfileProvider({ children }) {
 
   const updateAccount = (name, email, password, avatar) => {
     api
-      .put(`/api/users/${id}`, { name, email, password, avatar })
+      .put(`/api/users`, { name, email, password, avatar })
       .then((res) => setUser(res.data))
       .catch((error) => {
         addToastMessage(extractErrorMessage(error), "error");
@@ -43,7 +43,7 @@ export function ProfileProvider({ children }) {
 
   const deleteAccount = () => {
     api
-      .delete(`/api/users/${id}`)
+      .delete(`/api/users`)
       .then((res) => logout())
       .catch((error) => {
         addToastMessage(extractErrorMessage(error), "error");

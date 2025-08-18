@@ -3,7 +3,6 @@ import './PostCard.css';
 import defaultAvatar from "../assets/defaultAvatar.png";
 
 const PostCard = ({ post }) => {
-  console.log(post);
     return (
         <div className="post-card">
             <div className="post-header">
