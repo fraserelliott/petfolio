@@ -76,4 +76,11 @@ User.belongsToMany(User, {
   otherKey: 'followingId'
 });
 
+User.belongsToMany(User, {
+  through: Follow,
+  as: 'followers',
+  foreignKey: 'followingId',
+  otherKey: 'followerId',
+});
+
 module.exports = { User, Post, Comment, Follow };

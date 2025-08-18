@@ -6,6 +6,7 @@ import { ToastMessageDisplay } from "./components/ToastMessageDisplay";
 import Home from "./pages/home";
 import RegPage from "./pages/RegPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import UserProfilePage from "./pages/UserProfilePage.jsx";
 import grass from "./assets/background.png";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<RegPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/user" element={<UserProfilePage />} />
             <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
           <div style={{ position: "fixed", bottom: "3rem", right: "1rem" }}>

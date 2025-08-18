@@ -137,4 +137,19 @@ app.delete("/following/:followingId", authmiddleware, async (req, res) => {
   }
 })
 
+app.get("/:id", async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id, { attributes: ['avatar', 'name'] });
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const followersCount = await Follow.count({
+      where: { followingId: req.params.id }
+    });
+    res.status(200).json({avatar: user.avatar, name: user.name, followersCount});
+  } catch (error) {
+    console.error("Error getting user data: ", error);
+    res.status(500).json({ error: "Error getting user data" });
+  }
+});
+
 module.exports = app;
