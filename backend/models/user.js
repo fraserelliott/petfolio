@@ -41,12 +41,15 @@ User.init({
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
         return newUserData;
       },
-      beforeUpdate: async (updatedUserData) => {
-        updatedUserData.password = await bcrypt.hash(
-          updatedUserData.password,
-          10
-        );
-        return updatedUserData;
+      beforeUpdate: async (user) => {
+        if (user.changed("password")) {
+          if (user.password && user.password.trim() !== "") {
+            user.password = await bcrypt.hash(user.password, 10);
+          } else {
+            // If frontend sent empty password, keep the old one
+            user.password = user.previous("password");
+          }
+        }
       },
     },
     sequelize,
