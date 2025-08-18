@@ -5,6 +5,8 @@ import { useToast } from "../contexts/ToastContext";
 import { useEffect, useState } from "react";
 import api from "../api";
 import { UserAvatar } from "../components/UserAvatar";
+import { useAuth } from "../contexts/AuthContext";
+import { useProfile } from "../contexts/ProfileContext";
 
 const UserProfilePage = () => {
   const { posts, getPostsByUser } = usePosts();
@@ -13,6 +15,8 @@ const UserProfilePage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { token } = useAuth();
+  const { following, isFollowing, followAccount, unfollowAccount } = useProfile();
 
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get("id");
@@ -44,11 +48,21 @@ const UserProfilePage = () => {
     };
 
     fetchUser();
-  }, [id]);
+  }, [id, following]);
 
   useEffect(() => {
     if (!loading && !user) forceNavigate();
   }, [user, loading]);
+
+  const renderFollowButtons = () => {
+    if (!token) return null;
+
+    if (isFollowing(id)) {
+      return <button onClick={() => unfollowAccount(id)} className="btn-danger">Unfollow</button>;
+    } else {
+      return <button onClick={() => followAccount(id)}>Follow</button>;
+    }
+  };
 
   if (!posts) return null;
   if (posts && id && user) {
@@ -63,6 +77,7 @@ const UserProfilePage = () => {
             <span>{user.name}</span>
             <span>Followers: {user.followersCount}</span>
           </div>
+          {renderFollowButtons()}
         </div>
         <PostsPreviewFeed posts={getPostsByUser(id)} />
       </div>
@@ -79,7 +94,7 @@ const styles = {
     borderRadius: "1em",
     boxShadow:
       "0 4px 12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03)",
-  }
+  },
 };
 
 export default UserProfilePage;

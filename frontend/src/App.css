@@ -171,7 +171,7 @@ button:active, .button:active {
 }
 
 .btn-danger {
-  background-color: var(--btn-danger);
+background-color: var(--btn-danger) !important;
 }
 /*********************/
 
