@@ -3,6 +3,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { ToastMessageDisplay } from "./components/ToastMessageDisplay";
+import Home from "./pages/home";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<h1>Hello World</h1>} />
+          <Route path="/" element={<Home />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
         <Footer />
