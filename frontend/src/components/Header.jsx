@@ -1,5 +1,6 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import {useState} from 'react';
+import queryString from 'query-string';
 import logo from "../assets/logo.png";
 import styles from "./Header.module.css";
 import { useAuth } from "../contexts/AuthContext";
@@ -9,6 +10,8 @@ import { AddPostForm } from "./AddPostForm";
 export const Header = () => {
   const [showNewPost, setShowNewPost] = useState(false);
   const { token } = useAuth();
+  const location = useLocation();
+  console.log(location);
 
   return (
     <header className={styles.container}>
