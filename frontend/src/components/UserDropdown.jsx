@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { useProfile } from "../contexts/ProfileContext";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./UserDropdown.module.css";
+import { UserAvatar } from "./UserAvatar";
 
 export function UserDropdown() {
-  const { username, logout } = useAuth();
+  const { id, logout } = useAuth();
+  const { user } = useProfile();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -30,15 +33,15 @@ export function UserDropdown() {
   return (
     <div className={styles.wrapper}>
       <div ref={toggleButtonRef} onClick={() => setOpen(!open)}>
-        {username ? (
-          <img src="https://place.dog/50/50" className={styles.profileImg} />
+        {id ? (
+          <UserAvatar user={user} />
         ) : (
           "\u{1F464}"
         )}
       </div>
       {open && (
         <div className={styles.dropDownContainer} ref={dropdownRef}>
-          {username && (
+          {id && (
             <ul>
               <li>
                 <Link to="/settings">Settings {"\u{1F6E0}"}</Link>
@@ -55,7 +58,7 @@ export function UserDropdown() {
               </li>
             </ul>
           )}
-          {!username && (
+          {!id && (
             <ul>
               <li>
                 <Link to="/login">Login {"\u{1F43E}"}</Link>

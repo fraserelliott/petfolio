@@ -1,10 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
+import {useState} from 'react';
 import logo from "../assets/logo.png";
 import styles from "./Header.module.css";
 import { useAuth } from "../contexts/AuthContext";
 import { UserDropdown } from "./UserDropdown";
+import { AddPostForm } from "./AddPostForm";
 
 export const Header = () => {
+  const [showNewPost, setShowNewPost] = useState(false);
   const { token } = useAuth();
 
   return (
@@ -16,8 +19,13 @@ export const Header = () => {
         <h1>Build your pet's online portfolio.</h1>
       </div>
       <Navbar />
-      {!token && (
-        <Link>
+      {token ? (
+        <div onClick={() => setShowNewPost(true)} className={styles.columnGroup}>
+          <h1 className={styles.marker}>+</h1>
+          <h1>Add a New Post</h1>
+        </div>
+      ) : (
+        <Link to="/register">
           <div className={styles.columnGroup}>
             <h1 className={styles.marker}>+</h1>
             <h1>Create Your Petfolio</h1>
@@ -25,6 +33,7 @@ export const Header = () => {
         </Link>
       )}
       <UserDropdown />
+      {showNewPost && <AddPostForm onClose={() => setShowNewPost(false)} />}
     </header>
   );
 };

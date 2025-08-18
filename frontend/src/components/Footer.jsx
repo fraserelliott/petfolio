@@ -1,6 +1,6 @@
 export const Footer = () => {
   return (
-    <footer> 
+    <footer style={{textAlign: "center"}}> 
       <p>&copy; {new Date().getFullYear()}. All rights reserved.</p>
     </footer>
   );
