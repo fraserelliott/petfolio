@@ -25,10 +25,6 @@ export function ViewPost({ postID }) {
         }
     }, [posts]);
     
-
-    //'ecd057a5-7502-4522-8b84-f8b52dbcc33a'
-    console.log(post,comments)
-    
     const removeQueryParam = (paramKey) => {
 
         const queryParams = new URLSearchParams(location.search);

@@ -51,25 +51,7 @@ export function PostsProvider({ children }) {
   const getCommentsForPostAsync = async (id) => {
     try {
       const res = await api.get(`/api/comments?postsId=${id}`);
-      const comments = res.data;
-      const commentsWithUser = await Promise.all(
-        comments.map(async (comment) => {
-          try{
-            const userRes = await api.get(`/api/users/${comment.commenterId}`);
-            return {
-              ...comment, commenter: userRes.data,
-            };
-          }catch{
-            addToastMessage(extractErrorMessage(error), "error");
-            return {
-              ...comment,
-              commenter: null, // fallback if error
-            };
-          }
-        })
-      );
       return res.data;
-
     } catch (error) {
       addToastMessage(extractErrorMessage(error), "error");
       return [];

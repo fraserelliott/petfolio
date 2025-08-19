@@ -32,17 +32,6 @@ export function ProfileProvider({ children }) {
     }
   }, [id]);
 
-  const getProfileByID = (id) => {
-    api
-      .get(`/api/users/${id}`)
-      .then((res) => {
-        return res.data;
-      })
-      .catch((error) => {
-        addToastMessage(extractErrorMessage(error), "error");
-      });
-  }
-
   const updateAccount = (name, email, password, avatar) => {
     api
       .put(`/api/users`, { name, email, password, avatar })
@@ -87,7 +76,7 @@ export function ProfileProvider({ children }) {
 
   return (
     <ProfileContext.Provider
-      value={{ user, following, getProfileByID, updateAccount, deleteAccount, followAccount, unfollowAccount, isFollowing }}
+      value={{ user, following, updateAccount, deleteAccount, followAccount, unfollowAccount, isFollowing }}
     >
       {children}
     </ProfileContext.Provider>
