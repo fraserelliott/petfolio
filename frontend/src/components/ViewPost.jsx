@@ -10,39 +10,39 @@ export function ViewPost({ postID }) {
     const { posts, getPostByID, getCommentsForPostAsync } = usePosts();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState(null);
+  
+  useEffect(() => {
+    if (posts) {
+      setPost(getPostByID(postID));
+
+      const fetchComments = async () => {
+        const comments = await getCommentsForPostAsync(postID);
+        setComments(comments);
+      };
+      fetchComments();
+    }
+  }, [posts]);
+
+  const removeQueryParam = (paramKey) => {
+    const queryParams = new URLSearchParams(location.search);
+    queryParams.delete(paramKey);
     
+    // Build new URL without the parameter
+    const newSearch = queryParams.toString();
+    const newPath = `${location.pathname}${newSearch ? "?" + newSearch : ""}`;
 
-    useEffect(() => {
-        if (posts) {
-            setPost(getPostByID(postID));
+    // Navigate and reload
+    navigate(newPath);
+  };
 
-            const fetchComments = async () => {
-                const comments = await getCommentsForPostAsync(postID);
-                setComments(comments);
-            };
-
-            fetchComments();
-        }
-    }, [posts]);
-    //DEBUG
-    //console.log(post,comments)
-    
-    const removeQueryParam = (paramKey) => {
-
-        const queryParams = new URLSearchParams(location.search);
-        queryParams.delete(paramKey);
-
-        // Build new URL without the parameter
-        const newSearch = queryParams.toString();
-        const newPath = `${location.pathname}${newSearch ? '?' + newSearch : ''}`;
-
-        // Navigate and reload
-        navigate(newPath, { replace: true });
-    };
-
-
+  const handleOverlayClick = (e) => {
+        if (e.target.classList.contains("viewpost-container")) {
+            removeQueryParam("pID");
+      }
+  };
+  
     return (
-        <div className="viewpost-container"> 
+        <div className="viewpost-container" onClick={handleOverlayClick}> 
             <div className="viewpost-content">
                 <div><button onClick={() => removeQueryParam('pID')}>X</button></div>
                 {/*TODO: Add responsive design using flex row and flex-colum to make the comments go under the image */ }
@@ -79,8 +79,26 @@ export function ViewPost({ postID }) {
                     )}
                     </ul>
                 </div>
-                </>}
+              </div>
+              <img src={post.image} alt="post" />
             </div>
-        </div>
-    )
+            <div className="viewpost-comments">
+              <ul>
+                {Array.isArray(comments) && comments.length > 0 ? (
+                  comments.map((comment) => (
+                    <li className="viewpost-comment-holder" key={comment.id}>
+                      <div>{comment.commenter?.name}</div>
+                      <div>{comment.text} </div>
+                    </li>
+                  ))
+                ) : (
+                  <p>No Comments Available</p>
+                )}
+              </ul>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
 }

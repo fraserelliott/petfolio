@@ -1,13 +1,19 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import api from "../api";
 import { useToast } from "../contexts/ToastContext";
 import { extractErrorMessage } from "../utils/errorUtils";
 
-// Expected props: onUpload, onDelete, width, height
+// Expected props: onUpload, onDelete, width, height, src
 export function ImageUpload(props) {
   const [src, setSrc] = useState("");
   const { addToastMessage } = useToast();
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (props.src !== undefined) {
+      setSrc(props.src);
+    }
+  }, [props.src]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
