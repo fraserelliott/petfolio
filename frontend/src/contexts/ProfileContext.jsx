@@ -33,12 +33,19 @@ export function ProfileProvider({ children }) {
   }, [id]);
 
   const updateAccount = (name, email, password, avatar) => {
+    const payload = {};
+    if (name !== undefined) payload.name = name;
+    if (email !== undefined) payload.email = email;
+    if (password !== undefined) payload.password = password;
+    if (avatar !== undefined) payload.avatar = avatar;
+
     api
-      .put(`/api/users`, { name, email, password, avatar })
+      .put(`/api/users`, payload)
       .then((res) => setUser(res.data))
       .catch((error) => {
         addToastMessage(extractErrorMessage(error), "error");
       });
+    addToastMessage("Updated details", "success")
   };
 
   const deleteAccount = () => {
@@ -62,21 +69,30 @@ export function ProfileProvider({ children }) {
   const unfollowAccount = (followingId) => {
     api
       .delete(`/api/users/following/${followingId}`)
-      .then((res) => setFollowing((prev) => prev.filter(fId => fId !== followingId)))
+      .then((res) =>
+        setFollowing((prev) => prev.filter((fId) => fId !== followingId))
+      )
       .catch((error) => {
         addToastMessage(extractErrorMessage(error), "error");
       });
-  }
+  };
 
   const isFollowing = (followingId) => {
-    if (!following || following.length === 0)
-      return false;
+    if (!following || following.length === 0) return false;
     return following.includes(followingId);
-  }
+  };
 
   return (
     <ProfileContext.Provider
-      value={{ user, following, updateAccount, deleteAccount, followAccount, unfollowAccount, isFollowing }}
+      value={{
+        user,
+        following,
+        updateAccount,
+        deleteAccount,
+        followAccount,
+        unfollowAccount,
+        isFollowing,
+      }}
     >
       {children}
     </ProfileContext.Provider>

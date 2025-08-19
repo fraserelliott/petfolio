@@ -1,5 +1,6 @@
 const app = require("express").Router();
-const { User, Follow } = require("../models")
+const { User, Follow } = require("../models");
+const { update } = require("../models/user");
 const { signToken, authmiddleware } = require("../utils/auth");
 const bcrypt = require('bcrypt');
 
@@ -68,13 +69,15 @@ app.put("/", authmiddleware, async (req, res) => {
     if (!user)
       return res.status(404).json({ error: "User not found." })
 
+    const { name, email, avatar, password } = req.body;
+
     const updateData = {};
     if (name) updateData.name = name;
     if (email) updateData.email = email;
     if (avatar) updateData.avatar = avatar;
     if (password) updateData.password = password;
 
-    await user.update({ name, email, avatar, password });
+    await user.update(updateData);
     const userData = user.get({ plain: true });
     delete userData.password;
     res.status(200).json(userData)
