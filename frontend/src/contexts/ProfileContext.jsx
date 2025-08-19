@@ -45,6 +45,7 @@ export function ProfileProvider({ children }) {
       .catch((error) => {
         addToastMessage(extractErrorMessage(error), "error");
       });
+    addToastMessage("Updated details", "success")
   };
 
   const deleteAccount = () => {
