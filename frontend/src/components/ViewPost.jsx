@@ -44,37 +44,42 @@ export function ViewPost({ postID }) {
 
 
     return (
-        <div className="viewpost-container">
-            <button onClick={() => removeQueryParam('pID')}>X</button>
-            { post && 
-                <div className="">
-                    {/*TODO: Add responsive design using flex row and flex-colum to make the comments go under the image */ }
+        <div className="viewpost-container"> 
+            <div className="viewpost-content">
+                <div><button onClick={() => removeQueryParam('pID')}>X</button></div>
+                {/*TODO: Add responsive design using flex row and flex-colum to make the comments go under the image */ }
+                { post &&
+                <>
+                <div className="post-image">
                     <div className="post-header">
-                        <img src={post.author?.avatar || defaultAvatar} alt={post.name} className="avatar" />
-                        <span className="name">{post.author?.name || ""}</span>
-                    </div>
-                    <div className="post-image">
-                        <img src={post.image} alt="post"/>
                         <div>
-                            {post.caption}
+                            <div className="post-author">
+                                <img src={post.author?.avatar || defaultAvatar} alt={post.name} className="avatar" />
+                                <span className="name">{post.author?.name || ""}</span>
+                            </div>
+                            <div>
+                                {post.caption}
+                            </div>
+                        </div>
+                        <div className="post-footer" onClick="{/* TODO: */}">
+                            <span className="likes">🦴 {post.likes} treats </span>
                         </div>
                     </div>
-                    <div className="post-footer" onClick="{/* TODO: */}">
-                        <span className="likes">🦴 {post.likes} treats </span>
-                    </div>
+                    <img src={post.image} alt="post"/>
+                </div>
+                <div className="viewpost-comments">
                     <ul>
                     {Array.isArray(comments) && comments.length > 0 ? (
                         comments.map((comment) => (
-                            <li key={comment.id}>{comment.text}</li>
+                            <li className="viewpost-comment-holder" key={comment.id}>{comment.text}</li>
                         ))
                     ) : (
                         <p>No Comments Available</p>
                     )}
                     </ul>
                 </div>
-                
-            }
-            {}
+                </>}
+            </div>
         </div>
     )
 }
