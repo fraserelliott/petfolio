@@ -3,7 +3,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { ToastMessageDisplay } from "./components/ToastMessageDisplay";
-import Home from "./pages/home";
+import HomePage from "./pages/HomePage";
 import RegPage from "./pages/RegPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import UserProfilePage from "./pages/UserProfilePage.jsx";
@@ -25,7 +25,7 @@ function App() {
           }}
         >
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/register" element={<RegPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/user" element={<UserProfilePage />} />
