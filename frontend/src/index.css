@@ -1,8 +1,8 @@
 :root {
   --bg-primary: white;
   --bg-secondary: #FAF4E6;
-  --bg-card: rgba(255, 253, 245, 0.7);
-  --btn-primary: #DCCCA3;
+  --bg-card: rgba(255, 253, 245, 0.75);
+  --btn-primary: #B78F57;
   --btn-primary-hover: #C7B67A;
   --btn-primary-active: #A99856;
   --text-primary: #2B2B2B;
@@ -20,6 +20,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   --radius-card: 10px;
+  --radius-button: 5px;
 }
 
 * {

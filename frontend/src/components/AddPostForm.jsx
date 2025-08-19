@@ -52,7 +52,7 @@ export function AddPostForm({ onClose }) {
 
   return (
     <div
-      className={styles.addPostContainer}
+      className={`card card-list w-100 flex flex-wrap justify-center ${styles.addPostContainer}`}
       onSubmit={handleSubmit(handleAddPost, displayErrors)}
     >
       <form>

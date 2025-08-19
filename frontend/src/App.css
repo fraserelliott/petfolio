@@ -225,6 +225,10 @@ background-color: var(--btn-danger) !important;
 
 /**********************
 2.0 - POST STYLES - MAIN CARD STYLES   */
+@keyframes card-likes {
+  10% {transform: rotateX(180);}
+}
+
 .card-preview-feed {
     display: flex;
     flex-wrap: wrap;
@@ -236,6 +240,15 @@ background-color: var(--btn-danger) !important;
   background: var(--bg-card);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(2px);
+}
+
+.card-move{
+  transition: transform ease 0.2s;
+}
+
+.card-move:hover {
+  transform: translateY(-4px);
+  transition: transform ease 0.7s;
 }
 
 .card-list{
@@ -281,6 +294,10 @@ background-color: var(--btn-danger) !important;
 }
 .card .likes{
   flex: 0 0 5%;
+  z-index:103;
+}
+.likes:hover {
+  transform: rotate(180);
 }
 
 /**********************

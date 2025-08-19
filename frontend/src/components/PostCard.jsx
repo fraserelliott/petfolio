@@ -5,7 +5,7 @@ import defaultAvatar from "../assets/defaultAvatar.png";
 
 const PostCard = ({ post }) => {
     return (
-        <div className="card card-list my-1">
+        <div className="card card-list my-1 card-move">
             <header>
                 <img src={post.author?.avatar || defaultAvatar} alt={post.name} className="avatar" />
                 <span className="username">{post.author?.name || ""}</span>
