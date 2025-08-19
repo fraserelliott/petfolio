@@ -36,7 +36,7 @@ export function PostsProvider({ children }) {
   };
 
   const getPostsByUser = (id) => {
-    return posts.filter((p) => p.posted_by === id);
+    return posts.filter((p) => p.author.id === id);
   };
 
   const getPostByID = (id) => {
