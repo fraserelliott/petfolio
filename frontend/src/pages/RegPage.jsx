@@ -55,7 +55,6 @@ const RegPage = () => {
       <form className="card card-list form-row py-4 text-center" onSubmit={handleSubmit(registerUser, displayErrors)}>
         <div className="formGroup my-2">
           <label>Full Name:</label>
-          <br />
           <input
             {...register("name", {
               required: true,
@@ -65,7 +64,6 @@ const RegPage = () => {
         </div>
         <div className="formGroup my-2">
           <label>Email:</label>
-          <br />
           <input
             type="email"
             {...register("email", {
@@ -76,7 +74,6 @@ const RegPage = () => {
         </div>
         <div className="formGroup my-2">
           <label>Password:</label>
-          <br />
           <input
             type="password"
             {...register("password", { required: true, minLength: 8 })}
@@ -84,7 +81,6 @@ const RegPage = () => {
         </div>
         <div className="formGroup my-2">
           <label>Confirm Password:</label>
-          <br />
           <input
             type="password"
             {...register("passwordConf", { required: true, minLength: 8 })}
