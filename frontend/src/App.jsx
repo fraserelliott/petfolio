@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import UserProfilePage from "./pages/UserProfilePage.jsx";
 import grass from "./assets/grass-bg.png";
 import SettingsPage from "./pages/SettingsPage.jsx";
+import FollowingPage from "./pages/FollowingPage.jsx";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/user" element={<UserProfilePage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/following" element={<FollowingPage />} />
             <Route path="*" element={<h1>Not Found</h1>} />
           </Routes>
           <div style={{ position: "fixed", bottom: "3rem", right: "1rem" }}>
