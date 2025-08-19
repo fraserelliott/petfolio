@@ -31,8 +31,16 @@ export function PostsProvider({ children }) {
       .catch((error) => addToastMessage(extractErrorMessage(error), "error"));
   };
 
+  const getAllPosts = () => {
+    return posts;
+  };
+
   const getPostsByUser = (id) => {
-    return posts.filter((p) => p.author.id === id);
+    return posts.filter((p) => p.posted_by === id);
+  };
+
+  const getPostByID = (id) => {
+    return posts.find((p) => p.id === id);
   };
 
   /**
@@ -77,7 +85,9 @@ export function PostsProvider({ children }) {
       value={{
         posts,
         addPost,
+        getAllPosts,
         getPostsByUser,
+        getPostByID,
         getCommentsForPostAsync,
         getPostsFromFollowList,
         addComment,
