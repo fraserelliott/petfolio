@@ -36,8 +36,14 @@ export function ViewPost({ postID }) {
     navigate(newPath);
   };
 
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains("viewpost-container")) {
+    removeQueryParam("pID");
+  }
+  };
+
   return (
-    <div className="viewpost-container">
+    <div className="viewpost-container" onClick={handleOverlayClick}>
       <div className="viewpost-content">
         <div>
           <button onClick={() => removeQueryParam("pID")}>X</button>
