@@ -323,7 +323,7 @@ background-color: var(--btn-danger) !important;
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(4px);
+  /* backdrop-filter: blur(4px); */
   overflow-y: auto;
   flex-direction: row;
   z-index: 100;

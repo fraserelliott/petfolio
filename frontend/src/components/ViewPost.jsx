@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { usePosts } from '../contexts/PostsContext';
 import { useProfile } from '../contexts/ProfileContext';
+import { CommentBox } from './CommentBox';
 
 export function ViewPost({ postID }) {
     const location = useLocation();
@@ -13,7 +14,7 @@ export function ViewPost({ postID }) {
     
 
     useEffect(() => {
-        if (posts) {
+        if (posts && postID) {
             setPost(getPostByID(postID));
 
             const fetchComments = async () => {
@@ -23,7 +24,7 @@ export function ViewPost({ postID }) {
 
             fetchComments();
         }
-    }, [posts]);
+    }, [posts, postID, getPostByID, getCommentsForPostAsync]);
     //DEBUG
     //console.log(post,comments)
     
@@ -78,6 +79,7 @@ export function ViewPost({ postID }) {
                         <p>No Comments Available</p>
                     )}
                     </ul>
+                    <CommentBox postsId={post.id} setComments={setComments} />
                 </div>
                 </>}
             </div>
