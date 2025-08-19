@@ -6,12 +6,18 @@ import styles from "./Header.module.css";
 import { useAuth } from "../contexts/AuthContext";
 import { UserDropdown } from "./UserDropdown";
 import { AddPostForm } from "./AddPostForm";
+import { ViewPost } from "./ViewPost";
 
 export const Header = () => {
   const [showNewPost, setShowNewPost] = useState(false);
   const { token } = useAuth();
+
+  // Get the URL Parameters
   const location = useLocation();
-  console.log(location);
+  const searchParam  = location.search;
+  const queryParams = queryString.parse(location.search);
+  // set a postID variable to pass into the PostView Modal
+  const postID = typeof queryParams.pID === 'undefined' ? null : queryParams.pID;
 
   return (
     <header className={styles.container}>
@@ -36,7 +42,11 @@ export const Header = () => {
         </Link>
       )}
       <UserDropdown />
+
       {showNewPost && <AddPostForm onClose={() => setShowNewPost(false)} />}
+
+      {postID && <ViewPost postID={postID} />}
+
     </header>
   );
 };

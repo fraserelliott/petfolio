@@ -175,6 +175,23 @@ button:active, .button:active {
 }
 /*********************/
 
+/*********************/
+/**********************
+2.0 - POST STYLES - VIEW POST   */
+.viewpost-container{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  overflow-y: scroll;
+}
+
 .horizontal-spacing > * {
   margin-left: 0.25rem;
   margin-right: 0.25rem;
