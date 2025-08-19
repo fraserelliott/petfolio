@@ -3,7 +3,7 @@
   justify-content: space-between;
   background-color: var(--bg-secondary);
   align-items: center;
-  cursor: pointer;
+  cursor: default;
   padding: 1rem;
 }
 
@@ -22,25 +22,15 @@
   list-style: none;
 }
 
+.selected{
+  background-color: var(--dropdown-bg) !important;
+}
 .navItem {
   margin-right: 1rem;
   font-size: 1.2rem;
-  padding: 0 0.5rem;
+  padding: 0.4rem 0.9rem;
   line-height: 1.5;
-  display: flex;
-  align-items: center;
   height: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
-  border: var(--glass-border);
-}
-
-.navItem:hover {
-  background-color: var(--btn-primary-active);
-  cursor: pointer;
-}
-
-.selected {
-  background-color: var(--btn-primary-active);
 }
 
 .marker {

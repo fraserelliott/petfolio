@@ -32,7 +32,7 @@ export const Header = () => {
       {token ? (
         <div onClick={() => setShowNewPost(true)} className={styles.columnGroup}>
           <h1 className={styles.marker}>+</h1>
-          <h1>Add a New Post</h1>
+          <h2>Add a New Post</h2>
         </div>
       ) : (
         <Link to="/register">
@@ -66,7 +66,7 @@ const Navbar = () => {
         <NavLink
           to={to}
           className={({ isActive }) =>
-            isActive ? `${styles.navItem} ${styles.selected}` : styles.navItem
+            isActive ? `button ${styles.navItem} ${styles.selected}` : `button ${styles.navItem}`
           }
         >
           {name}
