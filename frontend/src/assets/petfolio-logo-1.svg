@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 220" role="img" aria-labelledby="title1">
+  <title id="title1">PETFOLIO playful logo with paw over the i and a wagging tail</title>
+  <style>
+    .word { font-family: "Baloo 2","Fredoka","Quicksand","Nunito",system-ui,sans-serif;
+            font-weight: 900; font-size: 118px; letter-spacing: 2px; }
+    .main { fill: var(--text-main, #2B2B2B); }
+    .accent { fill: var(--accent-main, #B78F57); }
+    .accent2 { fill: var(--accent-secondary, #D9A76C); }
+    .strokeAccent { stroke: var(--accent-secondary, #D9A76C); fill: none; stroke-width: 10; stroke-linecap: round; }
+  </style>
+
+  <!-- Wordmark -->
+  <text class="word" x="48" y="150">
+    <tspan class="accent">PET</tspan><tspan class="main">FOLIO</tspan>
+  </text>
+
+  <!-- Dog/cat ears perched on the P -->
+  <polygon class="accent2" points="78,72 92,28 110,72" />
+  <polygon class="accent2" points="112,72 128,32 146,72" />
+
+  <!-- Paw-dot above the "i" (positioned near the last third of the word) -->
+  <g transform="translate(700,78)">
+    <circle class="accent2" cx="0" cy="0" r="11"/>
+    <circle class="accent2" cx="-18" cy="16" r="7"/>
+    <circle class="accent2" cx="0" cy="19" r="7"/>
+    <circle class="accent2" cx="18" cy="16" r="7"/>
+    <ellipse class="accent2" cx="0" cy="37" rx="14" ry="10"/>
+  </g>
+
+  <!-- Wagging tail curling from the last O -->
+  <path class="strokeAccent" d="M720,158 C780,148 815,170 842,196" />
+  <path class="strokeAccent" d="M735,170 C772,168 800,184 822,200" opacity="0.45"/>
+</svg>

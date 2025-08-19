@@ -40,7 +40,7 @@ export function UserDropdown() {
         )}
       </div>
       {open && (
-        <div className={styles.dropDownContainer} ref={dropdownRef}>
+        <div className={`card ${styles.dropDownContainer}`} ref={dropdownRef}>
           {id && (
             <ul>
               <li>

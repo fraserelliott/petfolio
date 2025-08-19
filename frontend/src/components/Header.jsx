@@ -1,8 +1,9 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import {useState} from 'react';
 import queryString from 'query-string';
-import logo from "../assets/logo.png";
+import logo from "../assets/petfolio-logo-1.svg";
 import styles from "./Header.module.css";
+import PetfolioLogo from './PetfolioLogo';
 import { useAuth } from "../contexts/AuthContext";
 import { UserDropdown } from "./UserDropdown";
 import { AddPostForm } from "./AddPostForm";
@@ -23,7 +24,7 @@ export const Header = () => {
     <header className={styles.container}>
       <div className={styles.columnGroup}>
         <Link to="/">
-          <img src={logo} height="50" />
+          <PetfolioLogo size={260} animated />
         </Link>
         <h1>Build your pet's online portfolio.</h1>
       </div>

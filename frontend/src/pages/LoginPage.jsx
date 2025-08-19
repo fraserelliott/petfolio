@@ -40,35 +40,35 @@ const LoginPage = () => {
   };
 
   return (
+    <div className="w-100 flex flex-wrap justify-center">
     <form
-      className="w-100 flex flex-wrap justify-center"
+      className="card card-list form-row py-4 text-center"
       onSubmit={handleSubmit(handleLogin, displayErrors)}
     >
-      <div className="form-row w-l text-center">
-        <div className="formGroup my-2">
-          <label>Email:</label>
-          <br />
-          <input
-            type="email"
-            {...register("email", {
-              required: true,
-              pattern: {
-                value: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm,
-              },
-            })}
-          />
-        </div>
-        <div className="formGroup my-2">
-          <label>Password:</label>
-          <br />
-          <input
-            type="password"
-            {...register("password", { required: true })}
-          />
-        </div>
-        <input type="submit" value="Login" className="button" />
+      <div className="formGroup my-2">
+        <label>Email:</label>
+        <br />
+        <input
+          type="email"
+          {...register("email", {
+            required: true,
+            pattern: {
+              value: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm,
+            },
+          })}
+        />
       </div>
+      <div className="formGroup my-2">
+        <label>Password:</label>
+        <br />
+        <input
+          type="password"
+          {...register("password", { required: true })}
+        />
+      </div>
+      <input type="submit" value="Login" className="button" />
     </form>
+    </div>
   );
 };
 
