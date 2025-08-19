@@ -1,22 +1,25 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import './PostCard.css';
 import defaultAvatar from "../assets/defaultAvatar.png";
 
 const PostCard = ({ post }) => {
     return (
-        <div className="post-card">
-            <div className="post-header">
+        <div className="card card-list my-1">
+            <header>
                 <img src={post.author?.avatar || defaultAvatar} alt={post.name} className="avatar" />
-                <span className="name">{post.author?.name || ""}</span>
+                <span className="username">{post.author?.name || ""}</span>
+            </header>
+
+            <div className="card-image">
+                <Link key={post.id} to={`?pID=${post.id}`}>
+                    <img src={post.image} alt="post"/>
+                </Link>
             </div>
 
-        <div className="post-image">
-            <img src={post.image} alt="post"/>
-        </div>
-
-        <div className="post-footer">
-            <span className="likes">🦴 {post.likes} treats </span>
-        </div>
+            <footer>
+                <span className="likes">🦴 {post.likes} treats </span>
+            </footer>
 
         </div>
     );

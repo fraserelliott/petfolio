@@ -48,30 +48,29 @@ export function ViewPost({ postID }) {
                 {/*TODO: Add responsive design using flex row and flex-colum to make the comments go under the image */ }
                 { post &&
                 <>
-                <div className="post-image">
-                    <div className="post-header">
-                        <div>
-                            <div className="post-author">
-                                <img src={post.author?.avatar || defaultAvatar} alt={post.name} className="avatar" />
-                                <span className="name">{post.author?.name || ""}</span>
-                            </div>
-                            <div>
-                                {post.caption}
-                            </div>
-                        </div>
-                        <div className="post-footer">
-                        {/* <div className="post-footer" onClick="{ TODO: }"> */}
-                            <span className="likes">🦴 {post.likes} treats </span>
-                        </div>
+                <div className="card card-view">
+                    <header>
+                        <img src={post.author?.avatar || defaultAvatar} alt={post.name} className="avatar" />
+                        <span className="username">{post.author?.name || ""}</span>
+                    </header>
+
+                    <div className="card-image">
+                        <img src={post.image} alt="post"/>
                     </div>
-                    <img src={post.image} alt="post"/>
+    
+                    <footer>
+                    {/* <footer onClick="{ TODO: }"> */}
+                        <span className="caption">{post.caption}</span>
+                        <span className="likes">🦴 {post.likes} treats </span>
+                    </footer>
                 </div>
-                <div className="viewpost-comments">
-                    <ul>
+
+                <div className="card card-comments">
+                    <ul className="m-0 p-1">
                     {Array.isArray(comments) && comments.length > 0 ? (
                         comments.map((comment) => (
-                            <li className="viewpost-comment-holder" key={comment.id}>
-                                <div>{comment.commenter?.name}</div>
+                            <li className="m-0 py-1" key={comment.id}>
+                                <div className="username">{comment.commenter?.name}</div>
                                 <div>{comment.text} </div>
                             </li>
                         ))
