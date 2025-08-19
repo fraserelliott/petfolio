@@ -5,14 +5,16 @@ import { ImageUpload } from "../components/ImageUpload";
 import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import ConfirmPopup from "../components/ConfirmPopup";
 
 const ProfilePage = () => {
   const { user } = useProfile();
   const { addToastMessage } = useToast();
   const { token } = useAuth();
   const navigate = useNavigate();
-  const { updateAccount } = useProfile();
+  const { updateAccount, deleteAccount } = useProfile();
   const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [showDeletePopup, setShowDeletePopup] = useState(false);
 
   const profileForm = useForm({
     defaultValues: {},
@@ -148,7 +150,12 @@ const ProfilePage = () => {
           {showPasswordForm ? "Cancel Changing Password" : "Change Password"}
         </button>
         {showPasswordForm && (
-          <form onSubmit={passwordForm.handleSubmit(onPasswordSubmit, displayPasswordErrors)}>
+          <form
+            onSubmit={passwordForm.handleSubmit(
+              onPasswordSubmit,
+              displayPasswordErrors
+            )}
+          >
             <div className="formGroup my-2">
               <label>New Password:</label>
               <br />
@@ -175,6 +182,20 @@ const ProfilePage = () => {
               <input type="submit" value="Confirm" className="button" />
             </div>
           </form>
+        )}
+        <button className="btn-danger" onClick={() => setShowDeletePopup(true)}>
+          Delete Account
+        </button>
+        {showDeletePopup && (
+          <ConfirmPopup
+            text="Are you sure you want to delete your account?"
+            confirmClass="btn-danger"
+            onCancel={() => setShowDeletePopup(false)}
+            onConfirm={() => {
+              setShowDeletePopup(false);
+              deleteAccount();
+            }}
+          />
         )}
       </>
     );
