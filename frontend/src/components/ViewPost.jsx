@@ -6,6 +6,7 @@ import { useProfile } from '../contexts/ProfileContext';
 export function ViewPost({ postID }) {
     const navigate = useNavigate();
     const location = useLocation();
+    const { getProfileByID } = useProfile;
     const { posts, getPostByID, getCommentsForPostAsync } = usePosts();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState(null);
@@ -61,7 +62,8 @@ export function ViewPost({ postID }) {
                                 {post.caption}
                             </div>
                         </div>
-                        <div className="post-footer" onClick="{/* TODO: */}">
+                        <div className="post-footer">
+                        {/* <div className="post-footer" onClick="{ TODO: }"> */}
                             <span className="likes">🦴 {post.likes} treats </span>
                         </div>
                     </div>
@@ -71,7 +73,7 @@ export function ViewPost({ postID }) {
                     <ul>
                     {Array.isArray(comments) && comments.length > 0 ? (
                         comments.map((comment) => (
-                            <li className="viewpost-comment-holder" key={comment.id}>{comment.text}</li>
+                            <li className="viewpost-comment-holder" key={comment.id}>{comment.text} {comment.commenterId}</li>
                         ))
                     ) : (
                         <p>No Comments Available</p>
