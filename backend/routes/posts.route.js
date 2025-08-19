@@ -1,35 +1,22 @@
-// Import mini express library //
 const app = require("express").Router();
-// Import post model file //
 const { Post, User } = require("../models")
-// Import auth file //
 const { authmiddleware } = require("../utils/auth");
 
 app.get("/", async (req, res) => {
   try {
-    const posts = await Post.findAll({include: {
-      model: User,
-      as: "author",
-      attributes: [ "id", "avatar", "name" ]
-    }});
+    const posts = await Post.findAll({
+      include: {
+        model: User,
+        as: "author",
+        attributes: ["id", "avatar", "name"]
+      }
+    });
     res.status(200).json(posts)
   } catch (error) {
     console.error("Error retrieving posts: ", error);
     res.status(500).json({ error: "Error retrieving posts" })
   }
 });
-
-// Create a get request to retrieve all posts //
-
-// Trigger try //
-
-// -> Define desired request body -> //
-
-// -> Create response message //
-
-// Trigger catch //
-
-// Create error message //
 
 app.post("/", authmiddleware, async (req, res) => {
   try {
@@ -42,65 +29,61 @@ app.post("/", authmiddleware, async (req, res) => {
   }
 });
 
-// Create a post request to add a post //
+app.put("/:id", authmiddleware, async (req, res) => {
+  try {
+    const post = await Post.findByPk(req.params.id);
+    if (!post)
+      return res.status(404).json({ error: "Post not found." });
 
-// Trigger try //
+    if (post.postedBy !== req.user.id)
+      return res.status(403).json({ error: "Unauthorised action" });
 
-// -> Define desired request body -> //
+    const { caption, image } = req.body;
+    await post.update({ caption, image });
+    res.status(200).json(post);
+  } catch (error) {
+    console.error("Error updating post: ", error);
+    res.status(500).json({ error: "Error updating post" })
+  }
+});
 
-// -> Create action to add data to database -> //
+app.post("/like/:id", authmiddleware, async (req, res) => {
+  try {
+    const [affectedCount] = await Post.increment('likes', {
+      by: 1,
+      where: { id: req.params.id }
+    });
 
-// -> Create response message //
+    if (affectedCount === 0)
+      return res.status(404).json({ error: "Post not found" });
 
-// Trigger catch //
+    const post = await Post.findByPk(req.params.id);
+    return res.status(200).json(post);
+  } catch (error) {
+    console.error("Error liking post: ", error);
+    res.status(500).json({ error: "Error liking post" });
+  }
+});
 
-// Create error message //
+app.delete("/:id", authmiddleware, async (req, res) => {
+  try {
+    const deletedCount = await Post.destroy({
+      where: {
+        id: req.params.id,
+        postedBy: req.user.id
+      }
+    });
 
-// Create a post request to upload an image //
+    if (deletedCount === 0) {
+      return res.status(404).json({ error: "Post not found or unauthorized" });
+    }
 
-// Trigger try //
-
-// -> Define desired request to add -> //
-
-// -> Create action to add data -> //
-
-// -> Creat erespons emessage //
-
-// Trigger catch //
-
-// Create error message //
-
-
-
-// Create a delete request to delete a post //
-
-// Trigger try //
-
-// -> Define and locate data to be deleted -> //
-
-// -> Create response message //
-
-// Trigger catch //
-
-// Create error message //
-
-
-
-// Create a put request to update a post //
-
-// Trigger try //
-
-// -> Define desired request body to update -> //
-
-// -> Create action to locate data to be updated -> //
-
-// -> Create response message //
-
-// Trigger catch //
-
-// Create error message //
-
-
+    return res.status(200).json({ message: "Post deleted" });
+  } catch (error) {
+    console.error("Error deleting post: ", error);
+    res.status(500).json({ error: "Error deleting post" });
+  }
+});
 
 // Export module //
 module.exports = app;

@@ -1,11 +1,7 @@
-// Import express mini libraray // 
 const app = require("express").Router();
-// Import user model file //
 const { User, Follow } = require("../models")
-// Import auth file // 
 const { signToken, authmiddleware } = require("../utils/auth");
 const bcrypt = require('bcrypt');
-
 
 app.post("/", async (req, res) => {
   try {
@@ -20,22 +16,6 @@ app.post("/", async (req, res) => {
   }
 });
 
-// Initiate post to add/register user //
-
-// Trigger try //
-
-// Define desired data to be added //
-
-// Define token //
-
-// Create response message // 
-
-// Trigger catch //
-
-// Create error message //
-
-
-
 app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -43,7 +23,7 @@ app.post("/login", async (req, res) => {
     const user = await User.findOne({ where: { email: email.trim().toLowerCase() } });
 
     if (!user || !(await bcrypt.compare(password, user.password)))
-      return res.status(401).json({ error: "Invalid email address or password. " });
+      return res.status(401).json({ error: "Invalid email address or password." });
 
     const token = await signToken(user);
     res.status(200).json({ token, id: user.id });
@@ -53,23 +33,56 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Initiate post to login user //
+app.get("/", authmiddleware, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id);
+    if (!user)
+      return res.status(404).json({ error: "User not found." })
 
-// Trigger try //
+    const userData = user.get({ plain: true });
+    delete userData.password;
+    return res.status(200).json(userData);
+  } catch (error) {
+    console.error("Error getting user data: ", error);
+    res.status(500).json({ error: "Error getting user data" })
+  }
+})
 
-// Define and locate email input //
+app.delete("/", authmiddleware, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id);
+    if (!user)
+      return res.status(404).json({ error: "User not found." })
 
-// Create if email not found // 
+    await user.destroy();
+    return res.status(200).json({ message: "User deleted" });
+  } catch (error) {
+    console.error("Error deleting user: ", error);
+    res.status(500).json({ error: "Error deleting user" })
+  }
+})
 
-// Define and locate id input //
+app.put("/", authmiddleware, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id);
+    if (!user)
+      return res.status(404).json({ error: "User not found." })
 
-// Create if password not found // 
+    const updateData = {};
+    if (name) updateData.name = name;
+    if (email) updateData.email = email;
+    if (avatar) updateData.avatar = avatar;
+    if (password) updateData.password = password;
 
-// Define token //
-
-// Trigger catch //
-
-// Create error message //
+    await user.update({ name, email, avatar, password });
+    const userData = user.get({ plain: true });
+    delete userData.password;
+    res.status(200).json(userData)
+  } catch (error) {
+    console.error("Error updating user data: ", error);
+    res.status(500).json({ error: "Error updating user data" })
+  }
+})
 
 app.get("/following", authmiddleware, async (req, res) => {
   try {
@@ -94,7 +107,7 @@ app.post("/following/:followingId", authmiddleware, async (req, res) => {
       return res.status(400).json({ error: "Cannot follow yourself" });
     }
 
-    const followRecord = await Follow.create({followerId, followingId});
+    const followRecord = await Follow.create({ followerId, followingId });
     res.status(201).json(followRecord);
   } catch (error) {
     if (error.name === "SequelizeUniqueConstraintError") {
@@ -123,5 +136,20 @@ app.delete("/following/:followingId", authmiddleware, async (req, res) => {
     res.status(500).json({ error: "Error deleting following entry" })
   }
 })
+
+app.get("/:id", async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id, { attributes: ['avatar', 'name'] });
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const followersCount = await Follow.count({
+      where: { followingId: req.params.id }
+    });
+    res.status(200).json({avatar: user.avatar, name: user.name, followersCount});
+  } catch (error) {
+    console.error("Error getting user data: ", error);
+    res.status(500).json({ error: "Error getting user data" });
+  }
+});
 
 module.exports = app;
