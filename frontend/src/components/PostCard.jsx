@@ -6,29 +6,28 @@ const PostCard = ({ post }) => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   searchParams.set("pID", post.id);
-
   return (
-    <div className="post-card">
+    <div className="card card-list my-1 card-move">
       <Link to={`/user?id=${post.author?.id}`}>
-        <div className="post-header">
+        <header>
           <img
             src={post.author?.avatar || defaultAvatar}
             alt={post.name}
             className="avatar"
           />
-          <span className="name">{post.author?.name || ""}</span>
-        </div>
+          <span className="username">{post.author?.name || ""}</span>
+        </header>
       </Link>
 
-      <Link to={`${location.pathname}?${searchParams.toString()}`}>
-        <div className="post-image">
+      <div className="card-image">
+        <Link to={`${location.pathname}?${searchParams.toString()}`}>
           <img src={post.image} alt="post" />
-        </div>
+        </Link>
+      </div>
 
-        <div className="post-footer">
-          <span className="likes">🦴 {post.likes} treats </span>
-        </div>
-      </Link>
+      <div className="post-footer">
+        <span className="likes">🦴 {post.likes} treats </span>
+      </div>
     </div>
   );
 };

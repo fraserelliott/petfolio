@@ -1,8 +1,9 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import {useState} from 'react';
 import queryString from 'query-string';
-import logo from "../assets/logo.png";
+import logo from "../assets/petfolio-logo-1.svg";
 import styles from "./Header.module.css";
+import PetfolioLogo from './PetfolioLogo';
 import { useAuth } from "../contexts/AuthContext";
 import { UserDropdown } from "./UserDropdown";
 import { AddPostForm } from "./AddPostForm";
@@ -23,7 +24,7 @@ export const Header = () => {
     <header className={styles.container}>
       <div className={styles.columnGroup}>
         <Link to="/">
-          <img src={logo} height="50" />
+          <PetfolioLogo size={260} animated />
         </Link>
         <h1>Build your pet's online portfolio.</h1>
       </div>
@@ -31,7 +32,7 @@ export const Header = () => {
       {token ? (
         <div onClick={() => setShowNewPost(true)} className={styles.columnGroup}>
           <h1 className={styles.marker}>+</h1>
-          <h1>Add a New Post</h1>
+          <h2>Add a New Post</h2>
         </div>
       ) : (
         <Link to="/register">
@@ -65,7 +66,7 @@ const Navbar = () => {
         <NavLink
           to={to}
           className={({ isActive }) =>
-            isActive ? `${styles.navItem} ${styles.selected}` : styles.navItem
+            isActive ? `button ${styles.navItem} ${styles.selected}` : `button ${styles.navItem}`
           }
         >
           {name}

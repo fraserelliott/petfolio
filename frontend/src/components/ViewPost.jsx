@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { usePosts } from "../contexts/PostsContext";
 import { useProfile } from "../contexts/ProfileContext";
 
 export function ViewPost({ postID }) {
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
   const { getProfileByID } = useProfile;
   const { posts, getPostByID, getCommentsForPostAsync } = usePosts();
   const [post, setPost] = useState(null);
@@ -19,7 +19,6 @@ export function ViewPost({ postID }) {
         const comments = await getCommentsForPostAsync(postID);
         setComments(comments);
       };
-
       fetchComments();
     }
   }, [posts]);
@@ -38,56 +37,54 @@ export function ViewPost({ postID }) {
 
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains("viewpost-container")) {
-    removeQueryParam("pID");
-  }
+      removeQueryParam("pID");
+    }
   };
 
   return (
     <div className="viewpost-container" onClick={handleOverlayClick}>
-      <div className="viewpost-content">
-        <div>
-          <button onClick={() => removeQueryParam("pID")}>X</button>
-        </div>
-        {/*TODO: Add responsive design using flex row and flex-colum to make the comments go under the image */}
-        {post && (
-          <>
-            <div className="post-image">
-              <div className="post-header">
-                <div>
-                  <div className="post-author">
-                    <img
-                      src={post.author?.avatar || defaultAvatar}
-                      alt={post.name}
-                      className="avatar"
-                    />
-                    <span className="name">{post.author?.name || ""}</span>
-                  </div>
-                  <div>{post.caption}</div>
-                </div>
-                <div className="post-footer">
-                  {/* <div className="post-footer" onClick="{ TODO: }"> */}
-                  <span className="likes">🦴 {post.likes} treats </span>
-                </div>
-              </div>
+      {post && (
+        <div className="viewpost-content">
+          <div>
+            <button onClick={() => removeQueryParam("pID")}>X</button>
+          </div>
+
+          <div className="card card-view">
+            <header>
+              <img
+                src={post.author?.avatar || defaultAvatar}
+                alt={post.name}
+                className="avatar"
+              />
+              <span className="username">{post.author?.name || ""}</span>
+            </header>
+
+            <div className="card-image">
               <img src={post.image} alt="post" />
             </div>
-            <div className="viewpost-comments">
-              <ul>
-                {Array.isArray(comments) && comments.length > 0 ? (
-                  comments.map((comment) => (
-                    <li className="viewpost-comment-holder" key={comment.id}>
-                      <div>{comment.commenter?.name}</div>
-                      <div>{comment.text} </div>
-                    </li>
-                  ))
-                ) : (
-                  <p>No Comments Available</p>
-                )}
-              </ul>
-            </div>
-          </>
-        )}
-      </div>
+
+            <footer>
+              <span className="caption">{post.caption}</span>
+              <span className="likes">🦴 {post.likes} treats</span>
+            </footer>
+          </div>
+
+          <div className="card card-comments">
+            <ul className="m-0 p-1">
+              {Array.isArray(comments) && comments.length > 0 ? (
+                comments.map((comment) => (
+                  <li className="m-0 py-1" key={comment.id}>
+                    <div className="username">{comment.commenter?.name}</div>
+                    <div>{comment.text}</div>
+                  </li>
+                ))
+              ) : (
+                <p>No Comments Available</p>
+              )}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

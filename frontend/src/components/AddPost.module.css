@@ -1,19 +1,8 @@
 .addPostContainer {
   position: fixed;
-  top: 10%;
+  top: 20%;
   left: 50%;
-  transform: translateX(-50%);
-  width: fit-content;
-  height: fit-content;
-  padding: 4em;
-  background-color: var(--bg-secondary);
-  border: 5px solid var(--btn-primary-active);
-  border-radius: 1em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  z-index: 9999;
+  z-index: 102;
 }
 
 .addPostContainer > * {

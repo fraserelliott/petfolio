@@ -1,22 +1,30 @@
 :root {
   --bg-primary: white;
-  --bg-secondary: #FFFFF0;
-  --btn-primary: #DCCCA3;
-  --btn-primary-hover: #C7B67A;
-  --btn-primary-active: #A99856;
-  --text-primary: black;
+  --bg-secondary: #FAF4E6;
+  --bg-card: rgba(255, 253, 245, 0.75);
+  --btn-primary: #B78F57;
+  --btn-primary-hover: #A97F49;
+  --btn-primary-active: #916A3C;
+  --input-primary: #E8DFCA;
+  --input-primary-hover: #B78F57;
+  --input-primary-active: #D9A76C;
+  --text-primary: #2B2B2B;
   --text-secondary: black;
-  --text-muted: #94a3b8;
+  --text-muted: #6F6F6F;
   --dropdown-bg: #DCCCA3;
   --btn-danger: #f87171;
   --btn-danger-hover: #ef4444;
   --btn-danger-active: #dc2626;
-  --glass-border: 1px solid rgba(255, 255, 255, 0.05);
-  --font-family-primary: sans-serif;
-  --font-family-secondary: sans-serif;
+  --glass-border: 1px solid rgba(255, 253, 245, 0.1);
+  --font-family-header: "Delius Swash Caps", cursive;
+  --font-family-body: "Lexend", sans-serif;
+  --font-family-cta: "Istok Web", sans-serif;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --radius-card: 10px;
+  --radius-button: 5px;
 }
 
 * {
@@ -30,9 +38,12 @@ body {
   display: flex;
   place-items: center;
   background-color: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: var(--font-family-secondary);
+  color: var(--text-primary) !important;
+  font-family: var(--font-family-body);
   width: 100vw;
+}
+h1,h2,h3,h4,h5,h6{
+  font-family: var(--font-family-header) !important;
 }
 
 a {

@@ -93,18 +93,18 @@ const ProfilePage = () => {
 
   if (user)
     return (
-      <>
+      <div className="flex flex-column justify-center w-m mx-A align-center" style={{background: "var(--bg-card)", padding: "0.5rem"}}>
         <form
           onSubmit={profileForm.handleSubmit(
             onProfileSubmit,
             displayProfileErrors
           )}
+          className="form-row"
         >
           <div className="form-row flex w-l align-center justify-center">
             <div className="mx-3 col">
-              <div className="formGroup my-2">
+              <div className="formGroup">
                 <label>Full Name:</label>
-                <br />
                 <input
                   {...profileForm.register("name", {
                     required: true,
@@ -112,9 +112,8 @@ const ProfilePage = () => {
                   })}
                 />
               </div>
-              <div className="formGroup my-2">
+              <div className="formGroup">
                 <label>Email:</label>
-                <br />
                 <input
                   type="email"
                   {...profileForm.register("email", {
@@ -123,9 +122,8 @@ const ProfilePage = () => {
                   })}
                 />
               </div>
-              <div className="formGroup my-2">
+              <div className="formGroup">
                 <label>Avatar:</label>
-                <br />
                 <Controller
                   control={profileForm.control}
                   name="avatar"
@@ -146,9 +144,9 @@ const ProfilePage = () => {
             </div>
           </div>
         </form>
-        <button onClick={() => setShowPasswordForm(!showPasswordForm)}>
-          {showPasswordForm ? "Cancel Changing Password" : "Change Password"}
-        </button>
+          <button onClick={() => setShowPasswordForm(!showPasswordForm)}>
+            {showPasswordForm ? "Cancel Changing Password" : "Change Password"}
+          </button>
         {showPasswordForm && (
           <form
             onSubmit={passwordForm.handleSubmit(
@@ -156,9 +154,8 @@ const ProfilePage = () => {
               displayPasswordErrors
             )}
           >
-            <div className="formGroup my-2">
+            <div className="formGroup">
               <label>New Password:</label>
-              <br />
               <input
                 type="password"
                 {...passwordForm.register("password", {
@@ -167,9 +164,8 @@ const ProfilePage = () => {
                 })}
               />
             </div>
-            <div className="formGroup my-2">
+            <div className="formGroup">
               <label>Confirm New Password:</label>
-              <br />
               <input
                 type="password"
                 {...passwordForm.register("passwordConf", {
@@ -178,7 +174,7 @@ const ProfilePage = () => {
                 })}
               />
             </div>
-            <div className="formGroup my-2 text-center">
+            <div className="formGroup">
               <input type="submit" value="Confirm" className="button" />
             </div>
           </form>
@@ -197,7 +193,7 @@ const ProfilePage = () => {
             }}
           />
         )}
-      </>
+      </div>
     );
 };
 

@@ -7,8 +7,8 @@ import HomePage from "./pages/HomePage";
 import RegPage from "./pages/RegPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import UserProfilePage from "./pages/UserProfilePage.jsx";
+import grass from "./assets/grass-bg.png";
 import SettingsPage from "./pages/SettingsPage.jsx";
-import grass from "./assets/background.png";
 
 function App() {
   return (

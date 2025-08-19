@@ -51,52 +51,46 @@ const RegPage = () => {
   
 
   return (
-    <form onSubmit={handleSubmit(registerUser, displayErrors)}>
-      <div className="form-row flex w-l align-center justify-center">
-        <div className="mx-3 col">
-          <div className="formGroup my-2">
-            <label>Full Name:</label>
-            <br />
-            <input
-              {...register("name", {
-                required: true,
-                pattern: /^[a-z ,.'-]+$/i,
-              })}
-            />
-          </div>
-          <div className="formGroup my-2">
-            <label>Email:</label>
-            <br />
-            <input
-              type="email"
-              {...register("email", {
-                required: true,
-                pattern: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm,
-              })}
-            />
-          </div>
-          <div className="formGroup my-2">
-            <label>Password:</label>
-            <br />
-            <input
-              type="password"
-              {...register("password", { required: true, minLength: 8 })}
-            />
-          </div>
-          <div className="formGroup my-2">
-            <label>Confirm Password:</label>
-            <br />
-            <input
-              type="password"
-              {...register("passwordConf", { required: true, minLength: 8 })}
-            />
-          </div>
-          <div className="formGroup my-2 text-center">
-            <input type="submit" value="Register" className="button" />
-          </div>
+    <div className="w-100 flex flex-wrap justify-center">
+      <form className="card card-list form-row py-4 text-center" onSubmit={handleSubmit(registerUser, displayErrors)}>
+        <div className="formGroup my-2">
+          <label>Full Name:</label>
+          <input
+            {...register("name", {
+              required: true,
+              pattern: /^[a-z ,.'-]+$/i,
+            })}
+          />
         </div>
-      </div>
-    </form>
+        <div className="formGroup my-2">
+          <label>Email:</label>
+          <input
+            type="email"
+            {...register("email", {
+              required: true,
+              pattern: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm,
+            })}
+          />
+        </div>
+        <div className="formGroup my-2">
+          <label>Password:</label>
+          <input
+            type="password"
+            {...register("password", { required: true, minLength: 8 })}
+          />
+        </div>
+        <div className="formGroup my-2">
+          <label>Confirm Password:</label>
+          <input
+            type="password"
+            {...register("passwordConf", { required: true, minLength: 8 })}
+          />
+        </div>
+        <div className="formGroup my-2 text-center">
+          <input type="submit" value="Register" className="button" />
+        </div>
+      </form>
+    </div>
   );
 };
 
