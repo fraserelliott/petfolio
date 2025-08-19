@@ -73,7 +73,10 @@ export function ViewPost({ postID }) {
                     <ul>
                     {Array.isArray(comments) && comments.length > 0 ? (
                         comments.map((comment) => (
-                            <li className="viewpost-comment-holder" key={comment.id}>{comment.text} {comment.commenterId}</li>
+                            <li className="viewpost-comment-holder" key={comment.id}>
+                                <div>{comment.commenter?.name}</div>
+                                <div>{comment.text} </div>
+                            </li>
                         ))
                     ) : (
                         <p>No Comments Available</p>
