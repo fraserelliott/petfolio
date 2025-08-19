@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { ImageUpload } from "../components/ImageUpload";
 import { useForm } from "react-hook-form";
 import { useToast } from "../contexts/ToastContext";
 import api from "../api";
@@ -9,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 const RegPage = () => {
   const { register, handleSubmit } = useForm();
   const { addToastMessage } = useToast();
-  const [avatar, setAvatar] = useState("");
   const { login, token } = useAuth();
   const navigate = useNavigate();
 
@@ -24,7 +22,7 @@ const RegPage = () => {
       addToastMessage("Passwords don't match", "error");
       return;
     }
-    api.post("/api/users", { ...data, avatar }).then((res) => {
+    api.post("/api/users", data).then((res) => {
       login(data.email, data.password);
       navigate("/");
     });
@@ -50,13 +48,7 @@ const RegPage = () => {
       return addToastMessage("Password must be at least 8 characters", "error");
   };
 
-  const handleUpload = (url) => {
-    setAvatar(url);
-  };
-
-  const handleDelete = () => {
-    setAvatar("");
-  };
+  
 
   return (
     <form onSubmit={handleSubmit(registerUser, displayErrors)}>
@@ -98,10 +90,6 @@ const RegPage = () => {
               type="password"
               {...register("passwordConf", { required: true, minLength: 8 })}
             />
-          </div>
-          <div className="formGroup my-2">
-            <label>Avatar:</label>
-            <ImageUpload onUpload={handleUpload} onDelete={handleDelete} />
           </div>
           <div className="formGroup my-2 text-center">
             <input type="submit" value="Register" className="button" />
