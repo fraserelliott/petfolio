@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { usePosts } from '../contexts/PostsContext';
 import { useProfile } from '../contexts/ProfileContext';
 
 export function ViewPost({ postID }) {
-    const navigate = useNavigate();
     const location = useLocation();
+    const navigate = useNavigate();
     const { getProfileByID } = useProfile;
     const { posts, getPostByID, getCommentsForPostAsync } = usePosts();
     const [post, setPost] = useState(null);
@@ -24,10 +24,8 @@ export function ViewPost({ postID }) {
             fetchComments();
         }
     }, [posts]);
-    
-
-    //'ecd057a5-7502-4522-8b84-f8b52dbcc33a'
-    console.log(post,comments)
+    //DEBUG
+    //console.log(post,comments)
     
     const removeQueryParam = (paramKey) => {
 
@@ -39,8 +37,7 @@ export function ViewPost({ postID }) {
         const newPath = `${location.pathname}${newSearch ? '?' + newSearch : ''}`;
 
         // Navigate and reload
-        navigate(newPath);
-        window.location.reload(); // Only needed if you want a hard reload
+        navigate(newPath, { replace: true });
     };
 
 
