@@ -477,6 +477,7 @@ background-color: var(--btn-danger) !important;
   .flex-row-desktop {
     flex-direction: column;
   }
+
   .viewpost-content{
     display:block;
     overflow: visible;
