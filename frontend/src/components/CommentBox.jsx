@@ -18,12 +18,15 @@ export function CommentBox({ postsId, setComments }) {
 
     const handleAddComment = async (data) => {
         const text = data.text
-        //console.log(text, postsId);
+        //console.log("postsId at submission:", postsId);
+
         await addComment({text, postsId});
 
-        //Refetch Comments
-        const updatedComments = await getCommentsForPostAsync(postsId);
-        setComments(updatedComments);
+        //Refetch Comments. Timeout needed to allow full comments to be fetched
+        setTimeout(async () => {
+          const updatedComments = await getCommentsForPostAsync(postsId);
+          setComments(updatedComments);
+        }, 100);
 
         reset();
     };
