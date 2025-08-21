@@ -12,4 +12,23 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response) {
+      const status = error.response.status;
+
+      if (status === 401 || status === 403) {
+        // Clear session
+        sessionStorage.removeItem("authToken");
+        sessionStorage.removeItem("id");
+
+        // Redirect to login
+        window.location.href = "/login";
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default api;

@@ -1,13 +1,9 @@
-// Import jsonwebtoken library //
 const JWT = require("jsonwebtoken");
+const { User } = require("../models/index");
 
-// Define the token //
 const expiration = "2 hr";
 
-// Initiate authmiddleware function //
-const authmiddleware = (req, res, next) => {
-
-  // Locate the token //
+const authmiddleware = async (req, res, next) => {
   let token = req.headers.authorization;
 
   if (!token || typeof token !== 'string') {
@@ -15,13 +11,13 @@ const authmiddleware = (req, res, next) => {
   }
 
   token = token.split(' ').pop().trim();
-
-  // Trigger try //
   try {
-    // Verify the token //
     console.log(token);
     const data = JWT.verify(token, process.env.JWT_SECRET);
-    // Label the token //
+    const user = await User.findByPk(data.id);
+    if (!user) {
+      return res.status(401).json({ error: "Invalid or expired session" });
+    }
     req.user = data;
     next();
   } catch (error) {
