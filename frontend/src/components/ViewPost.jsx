@@ -75,22 +75,20 @@ export function ViewPost({ postID }) {
             </footer>
           </div>
 
-                <div className="card card-comments">
-                    <ul className="m-0 p-1">
-                    {Array.isArray(comments) && comments.length > 0 ? (
-                        comments.map((comment) => (
-                            <li className="m-0 py-1" key={comment.id}>
-                                <div className="username">{comment.commenter?.name}</div>
-                                <div>{comment.text} </div>
-                            </li>
-                        ))
-                    ) : (
-                        <p>No Comments Available</p>
-                    )}
-                    </ul>
-                    <CommentBox postsId={post.id} setComments={setComments} />
-                </div>
-                </>}
+            <div className="card card-comments">
+                <ul className="m-0 p-1">
+                {Array.isArray(comments) && comments.length > 0 ? (
+                    comments.map((comment) => (
+                        <li className="m-0 py-1" key={comment.id}>
+                            <div className="username">{comment.commenter?.name}</div>
+                            <div>{comment.text} </div>
+                        </li>
+                    ))
+                ) : (
+                    <p>No Comments Available</p>
+                )}
+                </ul>
+                <CommentBox postsId={post.id} setComments={setComments} />
             </div>
         </div>
       )}
