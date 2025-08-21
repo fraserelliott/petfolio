@@ -1,57 +1,58 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { usePosts } from "../contexts/PostsContext";
 import { useAuth } from "../contexts/AuthContext";
 import { useToast } from "../contexts/ToastContext";
 
-export function CommentBox({ postsId, setComments }) {
-    const { addToastMessage } = useToast();
-    const { addComment, getCommentsForPostAsync } = usePosts();
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: { errors },
-    } = useForm();
-    const { login, token } = useAuth();
+export function CommentBox({ postsId, onAddComment }) {
+  const { addToastMessage } = useToast();
+  const { addComment, getCommentsForPostAsync } = usePosts();
+  const { token } = useAuth();
 
-    const handleAddComment = async (data) => {
-        const text = data.text
-        //console.log("postsId at submission:", postsId);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-        await addComment({text, postsId});
-
-        //Refetch Comments. Timeout needed to allow full comments to be fetched
-        setTimeout(async () => {
-          const updatedComments = await getCommentsForPostAsync(postsId);
-          setComments(updatedComments);
-        }, 100);
-
-        reset();
-    };
-
-    const displayErrors = (errors) => {
-    if (errors.caption?.type === "required")
-        return addToastMessage("Please add a caption", "error");
-    };
-
-    if(!token){
-        return (
-            <Link to="/login">login to comment</Link>
-        );
+  const handleAddComment = async ({ text }) => {
+    console.log("text: ", text);
+    const comment = await addComment({ text, postsId });
+    console.log("comment: ", comment);
+    if (comment) {
+      onAddComment(comment);
+      reset();
     }
-    return (
-        <div
-          className="comment-box"
-          onSubmit={handleSubmit(handleAddComment, displayErrors)}
-        >
-          <form className="">
-            <div className="formGroup">
-              <textarea className="textarea-noresize p-1" {...register("text", { required: true })} rows="4" />
-            </div>
-            <input className="button" type="submit" value="comment" />
-          </form>
+  };
+
+  const displayErrors = (errs) => {
+    if (errs.text?.type === "required") {
+      addToastMessage("Please enter a comment", "error");
+    }
+  };
+
+  if (!token) {
+    return <Link to="/login">login to comment</Link>;
+  }
+
+  return (
+    <div className="comment-box">
+      <form
+        className=""
+        onSubmit={handleSubmit(handleAddComment, displayErrors)}
+      >
+        <div className="formGroup">
+          <textarea
+            className="textarea-noresize p-1"
+            rows="4"
+            placeholder="Leave your mark..."
+            {...register("text", { required: true })}
+          />
         </div>
-    );
+        <input className="button" type="submit" value="comment" />
+      </form>
+    </div>
+  );
 }

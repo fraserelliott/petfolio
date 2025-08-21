@@ -7,6 +7,13 @@ import { useProfile } from "./ProfileContext";
 
 export const PostsContext = createContext();
 
+const sortByCreatedAt = (posts, order = "desc") =>
+  [...posts].sort((a, b) =>
+    order === "asc"
+      ? new Date(a.createdAt) - new Date(b.createdAt)
+      : new Date(b.createdAt) - new Date(a.createdAt)
+  );
+
 export function PostsProvider({ children }) {
   const [posts, setPosts] = useState([]);
   const { addToastMessage } = useToast();
@@ -16,7 +23,7 @@ export function PostsProvider({ children }) {
     api
       .get("/api/posts")
       .then((res) => res.data)
-      .then((data) => setPosts(data))
+      .then((data) => setPosts(sortByCreatedAt(data)))
       .catch((error) => addToastMessage(extractErrorMessage(error), "error"));
   }, []);
 
@@ -25,7 +32,7 @@ export function PostsProvider({ children }) {
       .post("/api/posts", post)
       .then((res) => res.data)
       .then((data) => {
-        setPosts((prevPosts) => [...prevPosts, data]);
+        setPosts((prevPosts) => sortByCreatedAt([...prevPosts, data]));
       })
       .then(() => addToastMessage("Post Added", "success"))
       .catch((error) => addToastMessage(extractErrorMessage(error), "error"));
@@ -63,22 +70,26 @@ export function PostsProvider({ children }) {
   };
 
   const addComment = (comment) => {
-    api
+    return api
       .post("/api/comments", comment)
-      .catch((error) => addToastMessage(extractErrorMessage(error), "error"));
+      .then((res) => res.data)
+      .catch((error) => {
+        addToastMessage(extractErrorMessage(error), "error");
+        return null;
+      });
   };
 
   const editComment = (comment) => {
     api
       .put(`/api/comments/${comment.id}`, comment)
       .catch((error) => addToastMessage(extractErrorMessage(error), "error"));
-  }
+  };
 
   const deleteComment = (id) => {
     api
       .delete(`/api/comments/${id}`)
       .catch((error) => addToastMessage(extractErrorMessage(error), "error"));
-  }
+  };
 
   return (
     <PostsContext.Provider
@@ -92,7 +103,7 @@ export function PostsProvider({ children }) {
         getPostsFromFollowList,
         addComment,
         editComment,
-        deleteComment
+        deleteComment,
       }}
     >
       {children}
