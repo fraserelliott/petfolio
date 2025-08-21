@@ -40,14 +40,14 @@ export function CommentBox({ postsId, setComments }) {
     }
     return (
         <div
-          className=""
+          className="comment-box"
           onSubmit={handleSubmit(handleAddComment, displayErrors)}
         >
           <form className="">
             <div className="formGroup">
-              <textarea {...register("text", { required: true })} rows="4" />
+              <textarea className="textarea-noresize p-1" {...register("text", { required: true })} rows="4" />
             </div>
-            <input type="submit" value="comment" />
+            <input className="button" type="submit" value="comment" />
           </form>
         </div>
     );

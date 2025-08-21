@@ -205,12 +205,25 @@ input:focus {
 }
 
 textarea {
-  background-color: var(--btn-primary);
+  background-color: var(--input-primary);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03);
   color: var(--text-primary);
-  border: var(--glass-border);
-  resize: none;
-  padding: 0.1rem;
+  border: 1px solid var(--btn-primary);
+  border-radius: var(--radius-button);
+}
+
+textarea:hover {
+  background-color: var(--input-primary-hover);
+  border: 1px solid var(--btn-primary-hover);
+}
+
+textarea:focus {
+  background-color: var(--input-primary-active);
+  border: 1px solid var(--btn-primary-active);
+}
+
+.textarea-noresize{
+  resize:none;
 }
 
 input::placeholder,
@@ -367,6 +380,33 @@ background-color: var(--btn-danger) !important;
   text-align: left;
   box-sizing: border-box;
   border-bottom: 1px solid var(--btn-primary-active);
+}
+/**********************
+2.3 - POST STYLES - COMMENT BOX  */
+.comment-box{
+  width:100%;
+  box-sizing: border-box;
+  position:fixed;
+  bottom:0;
+  z-index:103;
+}
+.comment-box .formGroup{
+  margin:0;
+}
+.comment-box textarea{
+  width:99%;
+  margin: 0 1% 1% 2%;
+  padding-bottom: 22px;
+  box-sizing: border-box;
+  font-size:12px;
+}
+.comment-box .button{
+  margin:0;
+  height:22px;
+  font-size:10px;
+  position: absolute;
+  bottom:3%;
+  right:1%;
 }
 /*********************/
 .horizontal-spacing > * {
