@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { usePosts } from '../contexts/PostsContext';
 import { useProfile } from '../contexts/ProfileContext';
+import { useAuth } from '../contexts/AuthContext';
 import { CommentBox } from './CommentBox';
 
 export function ViewPost({ postID }) {
@@ -9,6 +10,7 @@ export function ViewPost({ postID }) {
     const navigate = useNavigate();
     const { getProfileByID } = useProfile;
     const { posts, getPostByID, getCommentsForPostAsync } = usePosts();
+    const { token, id } = useAuth();
     const [post, setPost] = useState(null);
     const [comments, setComments] = useState(null);
     
@@ -26,7 +28,7 @@ export function ViewPost({ postID }) {
         }
     }, [posts, postID, getPostByID, getCommentsForPostAsync]);
     //DEBUG
-    //console.log(post,comments)
+    console.log(post,comments);
     
     const removeQueryParam = (paramKey) => {
 
@@ -93,6 +95,9 @@ export function ViewPost({ postID }) {
                         <li className="m-0 py-1" key={comment.id}>
                             <div className="username">{comment.commenter?.name}</div>
                             <div>{comment.text} </div>
+                            { token && id === comment.commenter?.id && 
+                              <div className="card-comments-options"><span>edit</span><span>delete</span></div>
+                            }
                         </li>
                     ))
                 ) : (

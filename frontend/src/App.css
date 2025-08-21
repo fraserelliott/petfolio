@@ -395,6 +395,7 @@ background-color: var(--btn-danger) !important;
   border-bottom: 1px solid rgba(255,255,255,0.6);
   z-index: 100;
 }
+
 .card-comments ul{
   box-sizing: border-box;
   background-color: #fff;
@@ -402,6 +403,7 @@ background-color: var(--btn-danger) !important;
   padding-bottom:100px;
   overflow-y:auto;
 }
+
 .card-comments li{
   width:100%;
   box-sizing: border-box;
@@ -411,6 +413,20 @@ background-color: var(--btn-danger) !important;
   box-sizing: border-box;
   border-bottom: 1px solid var(--btn-primary-active);
 }
+
+.card-comments-options{
+  display:flex;
+  justify-content:flex-end;
+  font-size:10px;
+}
+.card-comments-options span{
+  margin: 0 2px;
+}
+.card-comments-options span:hover{
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
 /**********************
 2.3 - POST STYLES - COMMENT BOX  */
 .comment-box{
