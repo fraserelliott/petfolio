@@ -56,7 +56,7 @@ export function AddPostForm({ onClose }) {
       onSubmit={handleSubmit(handleAddPost, displayErrors)}
     >
       <form>
-        <div className={styles.addPostClose} onClick={handleClose}>
+        <div className={`close-button ${styles.addPostClose}`} onClick={handleClose}>
           x
         </div>
         <h2>Add a new post</h2>

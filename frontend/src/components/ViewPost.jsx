@@ -53,8 +53,8 @@ export function ViewPost({ postID }) {
           <div className="card card-view">
             
             <header>
-              <div>
-                <button onClick={() => removeQueryParam("pID")}>X</button>
+              <div className="close-button" onClick={() => removeQueryParam("pID")}>
+                x
               </div>
               {post && (
               <>
