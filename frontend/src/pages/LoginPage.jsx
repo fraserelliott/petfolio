@@ -47,7 +47,6 @@ const LoginPage = () => {
     >
       <div className="formGroup my-2">
         <label>Email:</label>
-        <br />
         <input
           type="email"
           {...register("email", {
@@ -60,7 +59,6 @@ const LoginPage = () => {
       </div>
       <div className="formGroup my-2">
         <label>Password:</label>
-        <br />
         <input
           type="password"
           {...register("password", { required: true })}

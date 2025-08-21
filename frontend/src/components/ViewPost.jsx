@@ -33,38 +33,47 @@ export function ViewPost({ postID }) {
         const queryParams = new URLSearchParams(location.search);
         queryParams.delete(paramKey);
 
-        // Build new URL without the parameter
-        const newSearch = queryParams.toString();
-        const newPath = `${location.pathname}${newSearch ? '?' + newSearch : ''}`;
+    // Build new URL without the parameter
+    const newSearch = queryParams.toString();
+    const newPath = `${location.pathname}${newSearch ? "?" + newSearch : ""}`;
 
-        // Navigate and reload
-        navigate(newPath, { replace: true });
-    };
+    // Navigate and reload
+    navigate(newPath);
+  };
 
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains("viewpost-container")) {
+      removeQueryParam("pID");
+    }
+  };
 
-    return (
-        <div className="viewpost-container"> 
-            <div className="viewpost-content">
-                <div><button onClick={() => removeQueryParam('pID')}>X</button></div>
-                {/*TODO: Add responsive design using flex row and flex-colum to make the comments go under the image */ }
-                { post &&
-                <>
-                <div className="card card-view">
-                    <header>
-                        <img src={post.author?.avatar || defaultAvatar} alt={post.name} className="avatar" />
-                        <span className="username">{post.author?.name || ""}</span>
-                    </header>
+  return (
+    <div className="viewpost-container" onClick={handleOverlayClick}>
+      {post && (
+        <div className="viewpost-content">
+          <div>
+            <button onClick={() => removeQueryParam("pID")}>X</button>
+          </div>
 
-                    <div className="card-image">
-                        <img src={post.image} alt="post"/>
-                    </div>
-    
-                    <footer>
-                    {/* <footer onClick="{ TODO: }"> */}
-                        <span className="caption">{post.caption}</span>
-                        <span className="likes">🦴 {post.likes} treats </span>
-                    </footer>
-                </div>
+          <div className="card card-view">
+            <header>
+              <img
+                src={post.author?.avatar || defaultAvatar}
+                alt={post.name}
+                className="avatar"
+              />
+              <span className="username">{post.author?.name || ""}</span>
+            </header>
+
+            <div className="card-image">
+              <img src={post.image} alt="post" />
+            </div>
+
+            <footer>
+              <span className="caption">{post.caption}</span>
+              <span className="likes">🦴 {post.likes} treats</span>
+            </footer>
+          </div>
 
                 <div className="card card-comments">
                     <ul className="m-0 p-1">
@@ -84,5 +93,7 @@ export function ViewPost({ postID }) {
                 </>}
             </div>
         </div>
-    )
+      )}
+    </div>
+  );
 }

@@ -52,7 +52,7 @@ export function AddPostForm({ onClose }) {
 
   return (
     <div
-      className={`card card-list w-100 flex flex-wrap justify-center ${styles.addPostContainer}`}
+      className={`card card-list w-100 flex flex-wrap justify-center text-center ${styles.addPostContainer}`}
       onSubmit={handleSubmit(handleAddPost, displayErrors)}
     >
       <form>
@@ -63,7 +63,6 @@ export function AddPostForm({ onClose }) {
         <ImageUpload onUpload={handleImgUpload} onDelete={handleImgDelete} />
         <div className="formGroup">
           <label>Caption:</label>
-          <br />
           <textarea {...register("caption", { required: true })} rows="4" />
         </div>
         <input type="submit" value="Add your Post!" />
