@@ -14,3 +14,13 @@
   right: 2%;
   top: 2%;
 }
+
+@media (max-width: 768px) {
+  .addPostContainer{
+    position: relative;
+    left:0;
+    top:100%;
+    width:100%;
+
+  }
+}

@@ -398,7 +398,6 @@ background-color: var(--btn-danger) !important;
 
 .card-comments ul{
   box-sizing: border-box;
-  background-color: #fff;
   height:100%;
   padding-bottom:100px;
   overflow-y:auto;
@@ -478,15 +477,22 @@ background-color: var(--btn-danger) !important;
   .flex-row-desktop {
     flex-direction: column;
   }
+
   .viewpost-content{
     display:block;
     overflow: visible;
     height:100%;
     box-sizing: border-box;
   }
+  
+  .card-view{
+    border-top-right-radius: var(--radius-card);
+    border-bottom-left-radius: 0;
+  }
 
   .card-comments{
     width:100%;
     height:auto;
+    border-radius: 0;
   }
 }

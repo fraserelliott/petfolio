@@ -11,6 +11,7 @@ import { ViewPost } from "./ViewPost";
 
 export const Header = () => {
   const [showNewPost, setShowNewPost] = useState(false);
+  const [menuToggle, setMenuToggle] = useState(false);
   const { token } = useAuth();
 
   // Get the URL Parameters
@@ -21,28 +22,34 @@ export const Header = () => {
   const postID = typeof queryParams.pID === 'undefined' ? null : queryParams.pID;
 
   return (
-    <header className={styles.container}>
+    <header>
+      <div className={styles.container}>
       <div className={styles.columnGroup}>
         <Link to="/">
-          <PetfolioLogo size={260} animated />
+          <PetfolioLogo size={200} animated />
         </Link>
-        <h1>Build your pet's online portfolio.</h1>
+        <h1 className={styles.logoHeader}>Build your pet's online portfolio.</h1>
       </div>
-      <Navbar />
-      {token ? (
-        <div onClick={() => setShowNewPost(true)} className={styles.columnGroup}>
-          <h1 className={styles.marker}>+</h1>
-          <h2>Add a New Post</h2>
-        </div>
-      ) : (
-        <Link to="/register">
-          <div className={styles.columnGroup}>
+      <div className={styles.menuToggle} onClick={() => setMenuToggle(!menuToggle)}>Menu</div>
+      <div className={menuToggle ? `card py-1 ${styles.navLinkHolder} ${styles.navLinkShow}` : `${styles.navLinkHolder}`}>
+        <Navbar />
+        {token ? (
+          <div onClick={() => {setShowNewPost(true); setMenuToggle(!menuToggle);}} className={`${styles.columnGroup} ${styles.addPost}`}>
             <h1 className={styles.marker}>+</h1>
-            <h1>Create Your Petfolio</h1>
+            <h2>Add a New Post</h2>
           </div>
-        </Link>
-      )}
+        ) : (
+          <Link to="/register">
+            <div className={styles.columnGroup}>
+              <h1 className={styles.marker}>+</h1>
+              <h1>Create Your Petfolio</h1>
+            </div>
+          </Link>
+        )}
+      </div>
       <UserDropdown />
+      </div>
+      
 
       {showNewPost && <AddPostForm onClose={() => setShowNewPost(false)} />}
 
@@ -62,9 +69,10 @@ const Navbar = () => {
 
   const renderPageLink = (name, to) => {
     return (
-      <li key={name}>
+      <li className={styles.navListLi} key={name}>
         <NavLink
           to={to}
+          onClick={() => setMenuToggle(!menuToggle)}
           className={({ isActive }) =>
             isActive ? `button ${styles.navItem} ${styles.selected}` : `button ${styles.navItem}`
           }
