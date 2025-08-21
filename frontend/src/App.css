@@ -293,6 +293,9 @@ background-color: var(--btn-danger) !important;
 .card-view{
   border-top-left-radius: var(--radius-card);
   border-bottom-left-radius: var(--radius-card);
+  height:85vh;
+  display: flex;
+  flex-direction: column;
   z-index:101;
 }
 
@@ -303,13 +306,18 @@ background-color: var(--btn-danger) !important;
 }
 
 .card-image {
+  flex-grow: 1;
+  display:flex;
+  justify-content:center;
+  align-items: center;
+  height:auto;
   overflow: hidden;
 }
 
 .card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .card footer{
@@ -363,7 +371,9 @@ background-color: var(--btn-danger) !important;
 /**********************
 2.2 - POST STYLES - VIEW CARD COMMENTS  */
 .card-comments{
+  position:relative;
   width:20%;
+  height:85vh;
   box-sizing: border-box;
   border-top-right-radius: var(--radius-card);
   border-bottom-right-radius: var(--radius-card);
@@ -371,6 +381,13 @@ background-color: var(--btn-danger) !important;
   border-top: 1px solid rgba(255,255,255,0.6);
   border-bottom: 1px solid rgba(255,255,255,0.6);
   z-index: 100;
+}
+.card-comments ul{
+  box-sizing: border-box;
+  background-color: #fff;
+  height:100%;
+  padding-bottom:100px;
+  overflow-y:auto;
 }
 .card-comments li{
   width:100%;
@@ -385,28 +402,31 @@ background-color: var(--btn-danger) !important;
 2.3 - POST STYLES - COMMENT BOX  */
 .comment-box{
   width:100%;
+  padding-right:17px;
   box-sizing: border-box;
   position:fixed;
   bottom:0;
   z-index:103;
+  flex-grow:0;
 }
 .comment-box .formGroup{
   margin:0;
 }
 .comment-box textarea{
-  width:99%;
-  margin: 0 1% 1% 2%;
+  width:100%;
+  margin: 0 2px 2px 5px;
   padding-bottom: 22px;
   box-sizing: border-box;
   font-size:12px;
+  max-height:100px;
 }
 .comment-box .button{
   margin:0;
   height:22px;
   font-size:10px;
   position: absolute;
-  bottom:3%;
-  right:1%;
+  bottom:6px;
+  right:19px;
 }
 /*********************/
 .horizontal-spacing > * {

@@ -49,33 +49,44 @@ export function ViewPost({ postID }) {
 
   return (
     <div className="viewpost-container" onClick={handleOverlayClick}>
-      {post && (
         <div className="viewpost-content">
-          <div>
-            <button onClick={() => removeQueryParam("pID")}>X</button>
-          </div>
-
           <div className="card card-view">
+            
             <header>
+              <div>
+                <button onClick={() => removeQueryParam("pID")}>X</button>
+              </div>
+              {post && (
+              <>
               <img
                 src={post.author?.avatar || defaultAvatar}
                 alt={post.name}
                 className="avatar"
               />
               <span className="username">{post.author?.name || ""}</span>
+              </>
+              )}
             </header>
 
             <div className="card-image">
+              {post && (
               <img src={post.image} alt="post" />
+              )}
             </div>
 
             <footer>
+              {post && (
+              <>
               <span className="caption">{post.caption}</span>
               <span className="likes">🦴 {post.likes} treats</span>
+              </>
+              )}
             </footer>
           </div>
 
             <div className="card card-comments">
+                {post && (
+                <>
                 <ul className="m-0 p-1">
                 {Array.isArray(comments) && comments.length > 0 ? (
                     comments.map((comment) => (
@@ -89,9 +100,10 @@ export function ViewPost({ postID }) {
                 )}
                 </ul>
                 <CommentBox postsId={post.id} setComments={setComments} />
+                </>
+              )}
             </div>
         </div>
-      )}
     </div>
   );
 }
