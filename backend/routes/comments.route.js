@@ -42,7 +42,20 @@ app.get("/", async (req, res) => {
 app.post("/", authmiddleware, async (req, res) => {
   try {
     const { text, postsId } = req.body;
-    const comment = await Comment.create({ text, postsId, commenterId: req.user.id });
+    const comment = await Comment.create({
+      text,
+      postsId,
+      commenterId: req.user.id
+    });
+
+    await comment.reload({
+      include: {
+        model: User,
+        as: "commenter",
+        attributes: ["id", "name", "avatar"]
+      }
+    });
+
     res.status(201).json(comment);
   } catch (error) {
     console.error("Error adding comment:", error);

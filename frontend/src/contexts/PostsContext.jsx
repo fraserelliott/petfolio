@@ -63,9 +63,13 @@ export function PostsProvider({ children }) {
   };
 
   const addComment = (comment) => {
-    api
+    return api
       .post("/api/comments", comment)
-      .catch((error) => addToastMessage(extractErrorMessage(error), "error"));
+      .then((res) => res.data)
+      .catch((error) => {
+        addToastMessage(extractErrorMessage(error), "error");
+        return null;
+      });
   };
 
   const editComment = (comment) => {
@@ -78,7 +82,7 @@ export function PostsProvider({ children }) {
     api
       .delete(`/api/comments/${id}`)
       .catch((error) => addToastMessage(extractErrorMessage(error), "error"));
-  }
+  };
 
   return (
     <PostsContext.Provider
@@ -92,7 +96,7 @@ export function PostsProvider({ children }) {
         getPostsFromFollowList,
         addComment,
         editComment,
-        deleteComment
+        deleteComment,
       }}
     >
       {children}
